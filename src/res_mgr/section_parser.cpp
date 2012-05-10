@@ -3,6 +3,7 @@
 #include "section_parser.hpp"
 
 #include "utils/log.hpp"
+#include "utils/buffer.hpp"
 
 #define SECTION_TYPE_STRUCT 0
 #define SECTION_TYPE_BOOL	1
@@ -274,38 +275,32 @@ private:
 class DataHandler
 {
 public:
-	DataHandler( const char *data, int length ) : data_( data ), length_( length ), index_(0), buffer_(0)
+	DataHandler( const char *data, int length ) : data_( data ), length_( length )
 	{
 	}
 
 	inline BinaryPtr encode()
 	{
-		do_encode(); // calculate the length
-		buffer_ = new Binary( index_ );
-		index_ = 0;
 		do_encode();
-		
-		return buffer_;
+
+		return buffer_.to_binary();
 	}
 
 	inline BinaryPtr decode()
 	{
-		do_decode();
-		buffer_ = new Binary( index_ );
-		index_ = 0;
-		do_decode();
-
-		return buffer_;
+		do_encode();
+		
+		return buffer_.to_binary();
 	}
 
 private:
 	void do_encode()
 	{
-		append_char( '\'' );
+		buffer_.write_char( '\'' );
 		for ( int index = 0; index < length_; ++index ) {
 			encode_char( data_[index] );
 		}
-		append_char( '\'' );
+		buffer_.write_char( '\'' );
 	}
 
 	void do_decode()
@@ -318,47 +313,45 @@ private:
 	inline void encode_char( unsigned char c )
 	{
 		if ( c == '\\' ) {
-			append_char( '\\' );
-			append_char( '\\' );
+			buffer_.write( "\\\\", 2 );
 			return;
 		}
 		if ( c == '\'' ) {
-			append_char( '\\' );
-			append_char( '\'' );
+			buffer_.write( "\\\'", 2 );
 			return;
 		}
 		if ( !iscntrl( c ) ) {
-			append_char( c );
+			buffer_.write_char( c );
 			return;
 		}
 		// control character encode
-		append_char( '\\' );
-		append_char( '0' + c/100 );
+		buffer_.write_char( '\\' );
+		buffer_.write_char( '0' + c/100 );
 		c = c % 100;
-		append_char( '0' + c/10 );
+		buffer_.write_char( '0' + c/10 );
 		c = c % 10;
-		append_char( '0' + c );
+		buffer_.write_char( '0' + c );
 	}
 
 	inline int decode_char( char c, int index )
 	{
 		if ( c != '\\' ) {
-			append_char(c);
+			buffer_.write_char(c);
 			return 1;
 		}
 		if ( index + 1 < length_ ) {
 			if ( data_[index + 1 ] == '\\' || data_[ index + 1] == '\'' ) {
-				append_char( data_[ index + 1 ] );
+				buffer_.write_char( data_[ index + 1 ] );
 				return 2;
 			}
 		}
 		if ( index + 3 >= length_ ) {
-			append_char( c );
+			buffer_.write_char( c );
 			return 1;
 		}
 		if ( !( isdigit( (unsigned char)data_[index+1]) && isdigit( (unsigned char)data_[index+2]) 
 			&& (unsigned char)isdigit( data_[index+3]) ) ) {
-				append_char( c );
+				buffer_.write_char( c );
 				return 1;
 		}
 
@@ -366,23 +359,14 @@ private:
 		int char_ord = data_[index + 1] - '0';
 		char_ord = char_ord*10 + data_[index + 2] - '0';
 		char_ord = char_ord*10 + data_[index + 3] - '0';
-		append_char( (char)char_ord );
+		buffer_.write_char( (char)char_ord );
 		return 4;
-	}
-
-	inline void append_char( char c )
-	{
-		if ( buffer_ ) {
-			buffer_->get_buffer()[ index_ ] = c;
-		}
-		++index_;
 	}
 
 private:
 	const char *data_;
 	int length_;
-	int index_;
-	BinaryPtr buffer_;
+	Buffer buffer_;
 };
 
 BinaryPtr binary_encode( const char *data, int length )
@@ -644,49 +628,24 @@ typedef std::vector< SectionInfo > SectionInfoVector;
 class SectionDumper
 {
 public:
-	SectionDumper( SectionPtr &section ) : section_( section ), buffer_index_(0)
+	SectionDumper( SectionPtr &section ) : section_( section )
 	{
 	}
 
 	BinaryPtr dump()
 	{
-		query_infos();
-		do_dump();
-
-		prepare_buffer();
-		do_dump();
-		
-		return buffer_;
-	}
-
-	void query_infos()
-	{
 		section_->query_info( section_infos_ );
+
+		do_dump();
+
+		return buffer_.to_binary();
 	}
 
 	virtual void do_dump() = 0;
 
 protected:
-	void dump_buffer( const void *buffer, int size )
-	{
-		if ( !buffer_ ) {
-			buffer_index_ += size;
-			return;
-		}
-		memcpy( buffer_->get_buffer() + buffer_index_, buffer, size );
-		buffer_index_ += size;
-	}
-
-	void prepare_buffer()
-	{
-		buffer_ = new Binary( buffer_index_ );
-		buffer_index_ = 0;
-	}
-
-protected:
 	SectionPtr section_;
-	BinaryPtr buffer_;
-	int buffer_index_;
+	Buffer buffer_;
 	SectionInfoVector section_infos_;
 };
 
@@ -714,7 +673,7 @@ public:
 	{
 		indent_ = -1;
 		info_index_ = 1; // skip the first section
-		dump_buffer( "#dog\n", 5 );
+		buffer_.write( "#dog\n", 5 );
 		dump_struct_value( section_infos_[0] );
 	}
 
@@ -728,21 +687,21 @@ private:
 			SectionInfo &info = section_infos_[ info_index_++ ];
 			DumpInfo dump_info = query_dump_info( info.type_ );
 			
-			dump_buffer( dump_info.type_name_.c_str(), dump_info.type_name_.size() );
-			dump_buffer( " ", 1 );
-			dump_buffer( info.name_.c_str(), info.name_.size() );
-			dump_buffer( " = ", 3 );
+			buffer_.write( dump_info.type_name_.c_str(), dump_info.type_name_.size() );
+			buffer_.write( " ", 1 );
+			buffer_.write( info.name_.c_str(), info.name_.size() );
+			buffer_.write( " = ", 3 );
 			if ( dump_info.has_brace_ ) {
-				dump_buffer( "{\n", 2 );
+				buffer_.write( "{\n", 2 );
 			}
 
 			dump_section_content( info );
 
 			if ( dump_info.has_brace_ ) {
 				dump_indent();
-				dump_buffer( "}", 1 );
+				buffer_.write( "}", 1 );
 			}
-			dump_buffer( "\n", 1 );
+			buffer_.write( "\n", 1 );
 
 		}
 		indent_ -= 1;
@@ -754,7 +713,7 @@ private:
 			indent = indent_;
 		}
 		for ( int i = 0; i < indent; ++i ) {
-			dump_buffer( "\t", 1 );
+			buffer_.write( "\t", 1 );
 		}
 	}
 
@@ -805,41 +764,41 @@ private:
 	{
 		char buffer[32];
 		int count = sprintf( buffer, "%d", info.section_->as_int() );
-		dump_buffer( buffer, count );
+		buffer_.write( buffer, count );
 	}
 
 	void dump_float_value( SectionInfo &info )
 	{
 		char buffer[32];
 		int count = sprintf( buffer, "%f", info.section_->as_float() );
-		dump_buffer( buffer, count );
+		buffer_.write( buffer, count );
 	}
 
 	void dump_point_value( SectionInfo &info )
 	{
 		char buffer[32];
-		dump_buffer( "{ ", 2 );
+		buffer_.write( "{ ", 2 );
 		Point point = info.section_->as_point();
 		int count = sprintf( buffer, "%f", point.x_ );
-		dump_buffer( buffer, count );
-		dump_buffer( " ", 1 );
+		buffer_.write( buffer, count );
+		buffer_.write( " ", 1 );
 		count = sprintf( buffer, "%f", point.y_ );
-		dump_buffer( buffer, count );
-		dump_buffer( " }", 2 );
+		buffer_.write( buffer, count );
+		buffer_.write( " }", 2 );
 	}
 
 	void dump_string_value( SectionInfo &info )
 	{
 		std::string value = info.section_->as_string();
 		BinaryPtr binary = binary_encode( value.c_str(), (int)value.size() );
-		dump_buffer( binary->get_buffer(), binary->get_length() );
+		buffer_.write( binary->get_buffer(), binary->get_length() );
 	}
 
 	void dump_binary_value( SectionInfo &info )
 	{
 		BinaryPtr value = info.section_->as_binary();
 		BinaryPtr binary = binary_encode( value->get_buffer(), value->get_length() );
-		dump_buffer( binary->get_buffer(), binary->get_length() );
+		buffer_.write( binary->get_buffer(), binary->get_length() );
 	}
 
 private:
