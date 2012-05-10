@@ -1,0 +1,25 @@
+#dog
+
+int iv = 1
+float fv = 2
+string s = '123\'abc\000\\1a234\\fff\\0中文fg'
+struct items = {
+	int total_item = 1024;
+	struct item = {
+		string name = '双倍经验abc'
+	}
+
+	struct item = {
+		int id = 1
+		#不知道是啥, 这是一个注释
+		string desc = '描述文字'
+	}
+
+}
+
+struct modes = {
+	struct model = {
+		string name = '头部'
+		point pos ={1.0 2.3}
+	}
+}
