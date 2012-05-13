@@ -63,11 +63,13 @@
     <ClInclude Include="binary.hpp" />
     <ClInclude Include="buffer.hpp" />
     <ClInclude Include="log.hpp" />
+    <ClInclude Include="scanner.hpp" />
     <ClInclude Include="smart_ptr.hpp" />
     <ClInclude Include="string_utils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="buffer.cpp" />
+    <ClCompile Include="scanner.cpp" />
     <ClCompile Include="string_utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -233,7 +233,7 @@ public:
 		write_section( name, new BinarySection( binary ) );
 	}
 
-	virtual void write_section( const std::string &name, SectionPtr &section )
+	virtual void write_section( const std::string &name, SectionPtr section )
 	{
 		SectionPtr child_section = section;
 		size_t pos = name.find_last_of( '/' );

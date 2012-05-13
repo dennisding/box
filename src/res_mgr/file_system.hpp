@@ -12,7 +12,7 @@ public:
 	static BinaryPtr read( const std::string &name );
 };
 
-BinaryPtr native_file_read( const std::string &name );
-void native_file_write( const std::string &name, BinaryPtr &binary );
+BinaryPtr read_native_file( const std::string &name );
+void write_native_file( const std::string &name, BinaryPtr &binary );
 
 #endif

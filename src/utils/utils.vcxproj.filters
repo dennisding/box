@@ -6,9 +6,11 @@
     <ClInclude Include="string_utils.hpp" />
     <ClInclude Include="binary.hpp" />
     <ClInclude Include="buffer.hpp" />
+    <ClInclude Include="scanner.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="string_utils.cpp" />
     <ClCompile Include="buffer.cpp" />
+    <ClCompile Include="scanner.cpp" />
   </ItemGroup>
 </Project>

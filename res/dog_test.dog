@@ -1,12 +1,12 @@
 #dog
-
-int iv = 1
-float fv = 2
-string s = '123\'abc\000\\1a234\\fff\\0中文fg'
+=
+int iv = 1234
+float fv = 4321.23
+string s = '123\'abc\000\\1a234\\fff\\0中文fg'123item
 struct items = {
 	int total_item = 1024;
 	struct item = {
-		string name = '双倍经验abc'
+		string name='双倍经验abc'
 	}
 
 	struct item = {

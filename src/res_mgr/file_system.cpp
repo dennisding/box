@@ -30,7 +30,7 @@ public:
 
 	virtual BinaryPtr read( const std::string &name )
 	{
-		return native_file_read( root_ + name );
+		return read_native_file( root_ + name );
 	}
 
 private:
@@ -61,7 +61,7 @@ BinaryPtr FileSystemMgr::read( const std::string &name )
 	return 0;
 }
 
-BinaryPtr native_file_read( const std::string &name )
+BinaryPtr read_native_file( const std::string &name )
 {
 	FILE *file = fopen( name.c_str(), "rb" );
 	if ( !file ) {
@@ -76,7 +76,7 @@ BinaryPtr native_file_read( const std::string &name )
 	return binary;
 }
 
-void native_file_write( const std::string &name, BinaryPtr &binary )
+void write_native_file( const std::string &name, BinaryPtr &binary )
 {
 	FILE *file = fopen( name.c_str(), "wb" );
 	fwrite( binary->get_buffer(), 1, binary->get_length(), file );

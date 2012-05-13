@@ -10,7 +10,7 @@ namespace {
 	public:
 		MakeIdentity( Matrix &matrix )
 		{
-			matrix.makeIdentity();
+			matrix.make_identify();
 		}
 	};
 
