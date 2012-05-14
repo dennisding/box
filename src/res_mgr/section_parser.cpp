@@ -1,9 +1,10 @@
-#include <cctype>
-
 #include "section_parser.hpp"
 
 #include "utils/log.hpp"
 #include "utils/buffer.hpp"
+#include "utils/scanner.hpp"
+
+#include <cctype>
 
 #define SECTION_TYPE_STRUCT 0
 #define SECTION_TYPE_BOOL	1
@@ -381,89 +382,10 @@ BinaryPtr binary_decode( const char *data, int length )
 	return handler.decode();
 }
 
-class TokenParser
-{
-public:
-	TokenParser( BinaryPtr &binary ) : binary_( binary )
-	{
-		line_ = 0;
-		index_ = 4; // skip the #id
-		buffer_ = binary->get_buffer();
-		length_ = binary->get_length();
-	}
-
-	const std::string next_token()
-	{
-		skip_space();
-		if ( index_ >= length_ ) {
-			return "";
-		}
-		int begin = index_;
-		if ( is_special_char( buffer_[begin] ) ) {
-			++index_;
-			return std::string( buffer_ + begin, index_ - begin );
-		} else if ( buffer_[begin] == '#' ) {
-			skip_line();
-			return next_token();
-		}
-
-		while ( index_ < length_ ) {
-			if ( is_special_char( buffer_[ index_ ] ) ) {
-				break;
-			}
-			if ( isspace( (unsigned char)buffer_[ index_ ] )) {
-				break;
-			}
-			++index_;
-		}
-		return std::string( buffer_ + begin, index_ - begin );
-	}
-
-public:
-	int line_;
-
-private:
-	void skip_line()
-	{
-		while ( index_ < length_  && buffer_[ index_ ] != '\n' ) {
-			++index_;
-		}
-		if ( index_ < length_ ) { // skip the '\n' character
-			++index_;
-		}
-	}
-
-	inline bool is_special_char( char c ) 
-	{
-		return c == '{' || c == '}' || c == '=';
-	}
-
-	void skip_space()
-	{
-		while ( index_ < length_ ) {
-			if ( buffer_[ index_ ] == '\n' ) {
-				++line_;
-			}
-
-			if ( !isspace( (unsigned char )buffer_[ index_ ] ) ) {
-				return;
-			}
-
-			++index_;
-		}
-	}
-
-private:
-	BinaryPtr binary_;
-	int length_;
-	int index_;
-	const char *buffer_;
-};
-
 class TextSectionParser
 {
 public:
-	TextSectionParser( BinaryPtr &binary ) : token_parser_( binary )
+	TextSectionParser( BinaryPtr &binary ) : scanner_( binary )
 	{
 	}
 
@@ -472,19 +394,18 @@ public:
 		SectionPtr root( new StructSection );
 
 		while ( true ) {
-			std::string type_name = token_parser_.next_token();
+			std::string type_name = scanner_.scan_text();
 			if ( type_name.empty() || type_name == "}" ) {
 				return root;
 			}
-			std::string name = token_parser_.next_token();
+			std::string name = scanner_.scan_text();
 			if ( name.empty() ) {
-				syntax_erro( "name" );
+				syntax_error( "name" );
 				return 0;
 			}
 
-			std::string equal_sign = token_parser_.next_token();
-			if ( equal_sign != "=" ) {
-				syntax_erro( "equal sign =" );
+			if ( scanner_.scan_text() != "=" ) {
+				syntax_error( "equal sign =" );
 				return 0;
 			}
 
@@ -495,12 +416,15 @@ public:
 			root->write_section( name, section );
 		}
 
+		return root;
 	}
 
 private:
 	SectionPtr parse_type( const std::string &type_name )
 	{
-		if ( type_name == "int" ) {
+		if ( type_name == "bool" ) {
+			return parse_bool_section();
+		} else if ( type_name == "int" ) {
 			return parse_int_section();
 		} else if ( type_name == "float" ) {
 			return parse_float_section();
@@ -520,73 +444,100 @@ private:
 		return 0;
 	}
 
-	SectionPtr parse_int_section()
+	SectionPtr parse_bool_section()
 	{
-		std::string token = token_parser_.next_token();
-		if ( token.empty() ) {
-			syntax_erro( "int" );
+		if ( scanner_.scan() != TOKEN_IDENTIFY ) {
+			syntax_error( "bool" );
 			return 0;
 		}
-		int value = atol( token.c_str() );
+		if ( scanner_.token_text() == "true" ) {
+			return new BoolSection( true );
+		} else {
+			return new BoolSection( false );
+		}
+		return 0;
+	}
+
+	SectionPtr parse_int_section()
+	{
+		if ( scanner_.scan() != TOKEN_INT ) {
+			syntax_error( "int" );
+			return 0;
+		}
+		int value = atol( scanner_.token_text().c_str() );
 		return new IntSection( value );
 	}
 
 	SectionPtr parse_float_section()
 	{
-		std::string token = token_parser_.next_token();
-		if ( token.empty() ) {
-			log_err( "section float error near line: %d", token_parser_.line_ );
+		if ( scanner_.scan() != TOKEN_FLOAT ) {
+			syntax_error( "float" );
 			return 0;
 		}
-		float value = (float)atof( token.c_str() );
+		float value = (float)atof( scanner_.token_text().c_str() );
 		return new FloatSection( value );
 	}
 
 	SectionPtr parse_point_section()
 	{
-		std::string token = token_parser_.next_token();
-		if ( token != "{" ) {
-			syntax_erro( "point {" );
-			return 0;
-		}
-		token = token_parser_.next_token();
-		if ( token.empty() ) {
-			syntax_erro( "point number1" );
-			return 0;
-		}
 		Point point;
-		point.x_ = (float)atof( token.c_str() );
-
-		token = token_parser_.next_token();
-		if ( token.empty() ) {
-			syntax_erro( "point number2" );
+		if ( !parse_float_array( &point.x_, 2, "point" ) ) {
 			return 0;
 		}
-		point.y_ = (float)atof( token.c_str() );
 
-		token = token_parser_.next_token();
-		if ( token.empty() ) {
-			syntax_erro( "point }" );
-			return 0;
-		}
 		return new PointSection( point );
 	}
 
 	SectionPtr parse_vector_section()
 	{
-		return 0;
+		Vector vector;
+		if ( !parse_float_array( &vector.a, 3, "vector" ) ) {
+			return 0;
+		}
+
+		return new VectorSection( vector );
 	}
 
 	SectionPtr parse_matrix_section()
 	{
-		return 0;
+		Matrix matrix;
+		if ( !parse_float_array( matrix.m_, 16, "matrix" ) ) {
+			return 0;
+		}
+
+		return new MatrixSection( matrix );
+	}
+
+	bool parse_float_array( float *floats, int size, const std::string &tips_prefix )
+	{
+		if ( scanner_.scan_text() != "{" ) {
+			syntax_error( tips_prefix + " {" );
+			return false;
+		}
+
+		for ( int i = 0; i < size; ++i ) {
+			TokenType token = scanner_.scan();
+			if ( (token != TOKEN_INT ) && ( token != TOKEN_FLOAT ) ) {
+				syntax_error( tips_prefix + " number" );
+				return false;
+			}
+
+			floats[ i ] = (float)atof( scanner_.token_text().c_str() );
+		}
+
+		if ( scanner_.scan_text() != "}" ) {
+			syntax_error( tips_prefix + " }" );
+			return false;
+		}
+
+		return true;
 	}
 
 	SectionPtr parse_string_section()
 	{
-		std::string token = token_parser_.next_token();
+		std::string token = scanner_.scan_text();
 		if ( token.empty() ) {
-			syntax_erro( "string" );
+			syntax_error( "string" );
 			return 0;
 		}
 		BinaryPtr binary = binary_decode( token.c_str(), (int)token.size() );
@@ -595,9 +546,9 @@ private:
 
 	SectionPtr parse_binary_section()
 	{
-		std::string token = token_parser_.next_token();
+		std::string token = scanner_.token_text();
 		if ( token.empty() ) {
-			syntax_erro( "binary" );
+			syntax_error( "binary" );
 			return 0;
 		}
 		return new BinarySection( binary_decode( token.c_str(), (int)token.size() ) );
@@ -605,22 +556,21 @@ private:
 
 	SectionPtr parse_struct_section()
 	{
-		std::string token = token_parser_.next_token();
-		if ( token != "{" ) {
-			syntax_erro( "struct {" );
+		if ( scanner_.token_text() != "{" ) {
+			syntax_error( "struct {" );
 			return 0;
 		}
 		return parse();
 	}
 
 private:
-	inline void syntax_erro( const std::string &identify )
+	inline void syntax_error( const std::string &identify )
 	{
-		log_err( "section [%s] syntax error near line : %d ", identify.c_str(), token_parser_.line_ );
+		log_err( "section [%s] syntax error near line : %d ", identify.c_str(), scanner_.line_ );
 	}
 
 private:
-	TokenParser token_parser_;
+	Scanner scanner_;
 };
 
 typedef std::vector< SectionInfo > SectionInfoVector;
@@ -806,6 +756,19 @@ private:
 	int info_index_;
 };
 
+class BinarySectionDumper : public SectionDumper
+{
+public:
+	BinarySectionDumper( SectionPtr &section ) : SectionDumper( section )
+	{
+	}
+
+	virtual void do_dump()
+	{
+
+	}
+};
+
 SectionPtr parse_text_section( BinaryPtr &binary )
 {
 	TextSectionParser parser( binary );
@@ -841,8 +804,8 @@ BinaryPtr dump_section_in_text( SectionPtr &section )
 	return dumper.dump();
 }
 
-BinaryPtr test_encode( BinaryPtr &binary )
+BinaryPtr dump_section_in_binary( SectionPtr &section )
 {
-	BinaryPtr encode = binary_encode( binary->get_buffer(), binary->get_length() );
-	return binary_decode( encode->get_buffer(), encode->get_length() );
+	BinarySectionDumper dumper( section );
+	return dumper.dump();
 }

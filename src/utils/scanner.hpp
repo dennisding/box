@@ -8,7 +8,6 @@
 
 enum TokenType {
 	TOKEN_UNKNOWN,
-	TOKEN_BOOL,
 	TOKEN_CHAR,
 	TOKEN_INT,
 	TOKEN_FLOAT,
@@ -22,8 +21,9 @@ public:
 	Scanner( BinaryPtr &bin, int start_pos = 0 );
 
 	TokenType scan();
-	const std::string token_text();
-	// split by space
+	const std::string &scan_text();
+	const std::string &token_text();
+	// token split by space
 	const std::string scan_unknow_token();
 
 public:
@@ -43,18 +43,24 @@ private:
 	BinaryPtr buffer_;
 	int index_;
 
-	int token_begin_;
+	std::string token_text_;
 };
 
 // inline
 inline Scanner::Scanner( BinaryPtr &bin, int start_pos ) 
-	: line_(0), buffer_( bin ), index_( start_pos ), token_begin_(start_pos)
+	: line_(0), buffer_( bin ), index_( start_pos )
 {
 }
 
-inline const std::string Scanner::token_text()
+inline const std::string &Scanner::scan_text()
 {
-	return std::string( buffer_->get_buffer(), token_begin_, index_ - token_begin_ );
+	scan();
+	return token_text_
+}
+
+inline const std::string &Scanner::token_text()
+{
+	return token_text_;
 }
 
 inline unsigned char Scanner::read_char()

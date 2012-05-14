@@ -5,26 +5,30 @@
 TokenType Scanner::scan()
 {
 	skip_space_and_comment();
+	
+	TokenType token = TOKEN_UNKNOWN;
+	int token_begin = index_;
 
-	token_begin_ = index_;
 	unsigned char ch = read_char();
 	if ( ch == '\'' ) {
-		return scan_string();
+		token = scan_string();
 	} else if ( isdigit( ch ) ) {
-		return scan_number();
+		token = scan_number();
 	} else if ( isalpha( ch ) || ch == '_' ) {
-		return scan_identify();
+		token = scan_identify();
 	} else if ( ch != 0 ) {
-		return TOKEN_CHAR;
+		token = TOKEN_CHAR;
 	}
-	
-	return TOKEN_UNKNOWN;
+
+	token_text_ = std::string( buffer_->get_buffer() + token_begin, index_ - token_begin );
+	return token;
 }
 
 const std::string Scanner::scan_unknow_token()
 {
 	skip_space_and_comment();
-	token_begin_ = index_;
+	
+	int token_begin = index_;
 	unsigned char ch = peek_char();
 	
 	while ( !iscntrl( ch ) && !isspace( ch ) ) {
@@ -32,7 +36,8 @@ const std::string Scanner::scan_unknow_token()
 		ch = peek_char();
 	}
 
-	return std::string( buffer_->get_buffer() + token_begin_, index_ - token_begin_ );
+	token_text_ = std::string( buffer_->get_buffer() + token_begin, index_ - token_begin );
+	return token_text_;
 }
 
 void Scanner::skip_space_and_comment()

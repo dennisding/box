@@ -7,6 +7,4 @@ SectionPtr parse_section( BinaryPtr &binary );
 SectionPtr new_section();
 BinaryPtr dump_section_in_text( SectionPtr &section );
 
-BinaryPtr test_encode( BinaryPtr &binary );
-
 #endif
