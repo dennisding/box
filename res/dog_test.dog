@@ -1,5 +1,6 @@
 #dog
 =
+// no show in file
 int iv = 1234
 float fv = 4321.23
 string s = '123\'abc\000\\1a234\\fff\\0ÖÐÎÄfg'123item

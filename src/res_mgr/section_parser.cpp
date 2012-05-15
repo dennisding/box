@@ -566,14 +566,28 @@ private:
 private:
 	inline void syntax_error( const std::string &identify )
 	{
-		log_err( "section [%s] syntax error near line : %d ", identify.c_str(), scanner_.line_ );
+		log_error( "section [%s] syntax error near line : %d ", identify.c_str(), scanner_.line_ );
 	}
 
 private:
 	Scanner scanner_;
 };
 
-typedef std::vector< SectionInfo > SectionInfoVector;
+class BinarySectionParser
+{
+public:
+	BinarySectionParser( BinaryPtr &binary ) : binary_( binary )
+	{
+	}
+
+	SectionPtr parse()
+	{
+
+	}
+
+private:
+	BinaryPtr binary_;
+};
 
 class SectionDumper
 {
@@ -604,11 +618,217 @@ class DumpInfo
 public:
 	DumpInfo( const std::string &type_name, bool has_brace = false ) : type_name_( type_name ), has_brace_( has_brace )
 	{
-
 	}
 
 	std::string type_name_;
 	bool has_brace_;
+};
+
+class Dumper : public Object
+{
+public:
+	Dumper( const std::string &type_name, SectionPtr &section ) : type_name_( type_name ), section_( section )
+	{
+	}
+
+	inline void dump_basic_info( Buffer &buffer, SectionInfo &info )
+	{
+		// type name
+		buffer.write( type_name_.c_str(), (int)type_name_.size() );
+		buffer.write( " ", 1 );
+		buffer.write(  info.name_.c_str(), (int)info.name_.size() );
+		buffer.write( " = ", 3 );
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent ) = 0;
+
+private:
+	const std::string type_name_;
+
+protected:
+	SectionPtr section_;
+};
+
+typedef SmartPtr< Dumper > DumperPtr;
+
+class BoolDumper : public Dumper
+{
+public:
+	BoolDumper( SectionPtr &section ) : Dumper( "bool", section )
+	{
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+		if ( section_->as_bool() ) {
+			buffer.write( "true", 4 );
+		} else {
+			buffer.write( "false", 5 );
+		}
+	}
+
+};
+
+class IntDumper : public Dumper
+{
+public:
+	IntDumper( SectionPtr &section ) : Dumper( "int", section )
+	{
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+		char tmp[32];
+		int count = sprintf( tmp, "%d", section_->as_int() );
+		buffer.write( tmp, count );
+	}
+};
+
+class FloatDumper : public Dumper
+{
+public:
+	FloatDumper( SectionPtr &section ) : Dumper( "float", section )
+	{
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+		char tmp[32];
+		int count = sprintf( tmp, "%f", section_->as_float() );
+		buffer.write( tmp, count );
+	}
+};
+
+class FloatArrayDumper : public Dumper
+{
+public:
+	FloatArrayDumper( const std::string &name, SectionPtr &section ) : Dumper( name, section )
+	{
+
+	}
+
+	inline void dump_indent( Buffer &buffer, int indent )
+	{
+		for ( int i = 0; i < indent; ++i ) {
+			buffer.write( "\t", 1 );
+		}
+	}
+
+	void dump_float_array( Buffer &buffer, float *floats, int num, int indent )
+	{
+		buffer.write( "{", 1 );
+		if ( num > 4 ) {
+			buffer.write( "\n", 1 );
+			dump_indent( buffer, indent + 1 );
+		}
+		char tmp[32];
+		for ( int i = 0; i < num; ++i ) {
+			if ( (i + 1) % 4 == 0 ) {
+				buffer.write( "\n", 1 );
+				dump_indent( buffer, indent + 1 );
+			}
+			int count = sprintf( tmp, "%f", floats[i] );
+			buffer.write( tmp, count );
+			buffer.write( " ", 1 );
+		}
+
+		if ( num > 4 ) {
+			buffer.write( "\n", 1 );
+			dump_indent( buffer, indent );
+		}
+		buffer.write( "}", 1 );
+		buffer.write( "\n", 1 );
+	}
+};
+
+class PointDumper : public FloatArrayDumper
+{
+public:
+	PointDumper( SectionPtr &section ) : FloatArrayDumper( "point", section )
+	{
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+		Point point = section_->as_point();
+		dump_float_array( buffer, &point.x_, 2, indent );
+	}
+};
+
+class VectorDumper : public FloatArrayDumper
+{
+public:
+	VectorDumper( SectionPtr &section ) : FloatArrayDumper( "vector", section )
+	{
+
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+		Vector vector = section_->as_vector();
+		dump_float_array( buffer, &vector.a, 3, indent );
+	}
+
+};
+
+class MatrixDumper : public FloatArrayDumper
+{
+public:
+	MatrixDumper( SectionPtr &section ) : FloatArrayDumper( "matrix", section )
+	{
+
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+		Matrix matrix = section_->as_matrix();
+		dump_float_array( buffer, matrix.m_, 16, indent );
+	}
+};
+
+class StringDumper : public Dumper
+{
+public:
+	StringDumper( SectionPtr &section ) : Dumper( "string", section )
+	{
+
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+		const std::string &value = section_->as_string();
+		BinaryPtr encoded = binary_encode( value.c_str(), (int)value.size() );
+		buffer.write( encoded->get_buffer(), encoded->get_length() );
+	}
+};
+
+class BinaryDumper : public Dumper
+{
+public:
+	BinaryDumper( SectionPtr &section ) : Dumper( "binary", section )
+	{
+
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+		BinaryPtr value = section_->as_binary();
+		BinaryPtr encoded = binary_encode( value->get_buffer(), value->get_length() );
+		buffer.write( encoded->get_buffer(), encoded->get_length() );
+	}
+};
+
+class StructDumper : public Dumper
+{
+public:
+	StructDumper( SectionPtr &section ) : Dumper( "struct", section )
+	{
+
+	}
+
+	virtual void dump_value( Buffer &buffer, int indent )
+	{
+	}
 };
 
 class TextSectionDumper : public SectionDumper
@@ -616,7 +836,6 @@ class TextSectionDumper : public SectionDumper
 public:
 	TextSectionDumper( SectionPtr &section ) : SectionDumper( section )
 	{
-
 	}
 
 	virtual void do_dump()
@@ -631,30 +850,31 @@ private:
 	void dump_struct_value( SectionInfo &root_info )
 	{
 		indent_ += 1;
+
 		for ( int i = 0; i < root_info.extra_info_; ++i ) {
 			dump_indent();
-
 			SectionInfo &info = section_infos_[ info_index_++ ];
-			DumpInfo dump_info = query_dump_info( info.type_ );
-			
-			buffer_.write( dump_info.type_name_.c_str(), dump_info.type_name_.size() );
-			buffer_.write( " ", 1 );
-			buffer_.write( info.name_.c_str(), info.name_.size() );
-			buffer_.write( " = ", 3 );
-			if ( dump_info.has_brace_ ) {
-				buffer_.write( "{\n", 2 );
+			DumperPtr dumper = query_dumper_by_type( info.type_, info.section_ );
+
+			dumper->dump_basic_info( buffer_, info );
+
+			if ( info.type_ == SECTION_TYPE_STRUCT ) {
+				dump_struct_brace_value( info );
+			} else {
+				dumper->dump_value( buffer_, indent_ );
 			}
-
-			dump_section_content( info );
-
-			if ( dump_info.has_brace_ ) {
-				dump_indent();
-				buffer_.write( "}", 1 );
-			}
-			buffer_.write( "\n", 1 );
-
 		}
+
 		indent_ -= 1;
+	}
+
+	void dump_struct_brace_value( SectionInfo &root_info )
+	{
+		buffer_.write( "{\n", 2 );
+		dump_struct_value( root_info );
+		buffer_.write( "\n", 1 );
+		dump_indent();
+		buffer_.write( "}\n", 2 );
 	}
 
 	void dump_indent( int indent = 0)
@@ -667,88 +887,25 @@ private:
 		}
 	}
 
-	DumpInfo query_dump_info( int type )
+	DumperPtr query_dumper_by_type( int type, SectionPtr &section )
 	{
 		switch( type ) {
+		case SECTION_TYPE_BOOL:
+			return new BoolDumper( section );
 		case SECTION_TYPE_INT:
-			return DumpInfo( "int" );
+			return new IntDumper( section );
 		case SECTION_TYPE_FLOAT:
-			return DumpInfo( "float" );
+			return new FloatDumper( section );
 		case SECTION_TYPE_POINT:
-			return DumpInfo( "point" );
+			return new PointDumper( section );
 		case SECTION_TYPE_STRING:
-			return DumpInfo( "string" );
+			return new StringDumper( section );
 		case SECTION_TYPE_BINARY:
-			return DumpInfo( "binary" );
+			return new BinaryDumper( section );
 		case SECTION_TYPE_STRUCT:
-			return DumpInfo( "struct", true );
+			return new StructDumper( section );
 		}
-		return DumpInfo( "error" );
-	}
-
-	void dump_section_content( SectionInfo &info )
-	{
-		switch( info.type_ ) {
-		case SECTION_TYPE_INT:
-			dump_int_value( info );
-			break;
-		case SECTION_TYPE_FLOAT:
-			dump_float_value( info );
-			break;
-		case SECTION_TYPE_POINT:
-			dump_point_value( info );
-			break;
-		case SECTION_TYPE_STRING:
-			dump_string_value( info );
-			break;
-		case SECTION_TYPE_BINARY:
-			dump_binary_value( info );
-			break;
-		case SECTION_TYPE_STRUCT:
-			dump_struct_value( info );
-			break;
-		}
-	}
-
-	void dump_int_value( SectionInfo &info )
-	{
-		char buffer[32];
-		int count = sprintf( buffer, "%d", info.section_->as_int() );
-		buffer_.write( buffer, count );
-	}
-
-	void dump_float_value( SectionInfo &info )
-	{
-		char buffer[32];
-		int count = sprintf( buffer, "%f", info.section_->as_float() );
-		buffer_.write( buffer, count );
-	}
-
-	void dump_point_value( SectionInfo &info )
-	{
-		char buffer[32];
-		buffer_.write( "{ ", 2 );
-		Point point = info.section_->as_point();
-		int count = sprintf( buffer, "%f", point.x_ );
-		buffer_.write( buffer, count );
-		buffer_.write( " ", 1 );
-		count = sprintf( buffer, "%f", point.y_ );
-		buffer_.write( buffer, count );
-		buffer_.write( " }", 2 );
-	}
-
-	void dump_string_value( SectionInfo &info )
-	{
-		std::string value = info.section_->as_string();
-		BinaryPtr binary = binary_encode( value.c_str(), (int)value.size() );
-		buffer_.write( binary->get_buffer(), binary->get_length() );
-	}
-
-	void dump_binary_value( SectionInfo &info )
-	{
-		BinaryPtr value = info.section_->as_binary();
-		BinaryPtr binary = binary_encode( value->get_buffer(), value->get_length() );
-		buffer_.write( binary->get_buffer(), binary->get_length() );
+		return 0;
 	}
 
 private:
@@ -785,11 +942,13 @@ SectionPtr parse_section( BinaryPtr &binary )
 	if ( binary->get_length() < 4 ) {
 		return 0;
 	}
+
 	if ( memcmp( binary->get_buffer(), "#dog", 4 ) == 0 ) {
 		return parse_text_section( binary );
 	}else if ( memcmp( binary->get_buffer(), "#doe", 4 ) == 0 ) {
 		return parse_binary_section( binary );
 	}
+
 	return SectionPtr();
 }
 
