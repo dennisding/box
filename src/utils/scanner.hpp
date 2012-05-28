@@ -55,7 +55,7 @@ inline Scanner::Scanner( BinaryPtr &bin, int start_pos )
 inline const std::string &Scanner::scan_text()
 {
 	scan();
-	return token_text_
+	return token_text_;
 }
 
 inline const std::string &Scanner::token_text()

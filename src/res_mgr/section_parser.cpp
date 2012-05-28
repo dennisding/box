@@ -809,3 +809,4 @@ BinaryPtr dump_section_in_binary( SectionPtr &section )
 	BinarySectionDumper dumper( section );
 	return dumper.dump();
 }
+
