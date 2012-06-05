@@ -7,6 +7,7 @@
 void Buffer::write_at( int offset, const void *buffer, int size )
 {
 	int data_length = offset + size;
+	write_pos_ = offset;
 	// prepare the buffer
 	for ( int buf_size = buffers_.size() * BUFFER_SIZE; buf_size < data_length; buf_size += BUFFER_SIZE ) {
 		buffers_.push_back( new Binary( BUFFER_SIZE ) );
@@ -19,7 +20,7 @@ void Buffer::write_at( int offset, const void *buffer, int size )
 		int offset = write_pos_ % BUFFER_SIZE;
 		int available = (index + 1 ) * BUFFER_SIZE;
 		available = std::min( available, size );
-		memcpy( buffers_[index]->get_buffer(), buffer, available );
+		memcpy( buffers_[index]->get_buffer() + offset, buffer, available );
 
 		write_pos_ += available;
 		writed += available;

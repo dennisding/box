@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "res_mgr", "res_mgr\res_mgr.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "math", "math\math.vcxproj", "{38B4DD3E-5333-4E7D-A373-4C97C70C9446}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "prime", "prime\prime.vcxproj", "{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,10 @@ Global
 		{38B4DD3E-5333-4E7D-A373-4C97C70C9446}.Debug|Win32.Build.0 = Debug|Win32
 		{38B4DD3E-5333-4E7D-A373-4C97C70C9446}.Release|Win32.ActiveCfg = Release|Win32
 		{38B4DD3E-5333-4E7D-A373-4C97C70C9446}.Release|Win32.Build.0 = Release|Win32
+		{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}.Debug|Win32.Build.0 = Debug|Win32
+		{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}.Release|Win32.ActiveCfg = Release|Win32
+		{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

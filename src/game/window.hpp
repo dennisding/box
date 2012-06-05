@@ -4,7 +4,9 @@
 class GameWindow
 {
 public:
-	void create();
+	static void init();
+	static void fini();
+	static void process_message();
 };
 
 #endif

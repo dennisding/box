@@ -14,9 +14,9 @@ public:
 	float y_;
 };
 
-bool operator < ( const Point &p1, const Point &p2 )
+inline bool operator < ( const Point &p1, const Point &p2 )
 {
-	return memcmp( &p1, &p2 ) < 0;
+	return memcmp( &p1, &p2, sizeof( Point ) ) < 0;
 }
 
 #endif

@@ -44,10 +44,10 @@ struct BinarySectionEntry
 		return 0x00FFFFFF & type_and_name_;
 	}
 
-	int set_name_offset( int offset )
+	void set_name_offset( int offset )
 	{
 		type_and_name_ &= 0xFF000000;
-		type_and_name_ == offset;
+		type_and_name_ |= offset;
 	}
 };
 
@@ -324,7 +324,7 @@ public:
 
 	inline BinaryPtr decode()
 	{
-		do_encode();
+		do_decode();
 		
 		return buffer_.to_binary();
 	}
@@ -476,6 +476,7 @@ private:
 		} else if ( type_name == "struct") {
 			return parse_struct_section();
 		}
+		syntax_error( "invalid type name" );
 		return 0;
 	}
 
@@ -526,7 +527,7 @@ private:
 	SectionPtr parse_vector_section()
 	{
 		Vector vector;
-		if ( !parse_float_array( &vector.a, 3, "vector" ) ) {
+		if ( !parse_float_array( &vector.x_, 3, "vector" ) ) {
 			return 0;
 		}
 
@@ -570,28 +571,28 @@ private:
 
 	SectionPtr parse_string_section()
 	{
-		std::string token = scanner_.scan_text();
-		if ( token.empty() ) {
+		if ( scanner_.scan() != TOKEN_STRING ) {
 			syntax_error( "string" );
 			return 0;
 		}
+		std::string token = scanner_.token_text();
 		BinaryPtr binary = binary_decode( token.c_str(), (int)token.size() );
 		return new StringSection( std::string( binary->get_buffer(), binary->get_length() ) );
 	}
 
 	SectionPtr parse_binary_section()
 	{
-		std::string token = scanner_.token_text();
-		if ( token.empty() ) {
+		if ( scanner_.scan() != TOKEN_STRING ) {
 			syntax_error( "binary" );
 			return 0;
 		}
+		const std::string token = scanner_.token_text();
 		return new BinarySection( binary_decode( token.c_str(), (int)token.size() ) );
 	}
 
 	SectionPtr parse_struct_section()
 	{
-		if ( scanner_.token_text() != "{" ) {
+		if ( scanner_.scan_text() != "{" ) {
 			syntax_error( "struct {" );
 			return 0;
 		}
@@ -639,11 +640,12 @@ private:
 			SectionPtr section;
 			switch ( entry.get_type() ) {
 			case SECTION_TYPE_STRUCT:
+				--entry_index_;
 				section = parse_sections();
 				break;
 
 			case SECTION_TYPE_BOOL:
-				section = new BoolSection( (bool)entry.value_ );
+				section = new BoolSection( entry.value_ != 0 );
 				break;
 
 			case SECTION_TYPE_INT:
@@ -819,7 +821,7 @@ public:
 	virtual void dump_value( Buffer &buffer, int indent )
 	{
 		char tmp[32];
-		int count = sprintf( tmp, "%f", section_->as_float() );
+		int count = sprintf( tmp, "%g", section_->as_float() );
 		buffer.write( tmp, count );
 	}
 };
@@ -841,18 +843,14 @@ public:
 
 	void dump_float_array( Buffer &buffer, float *floats, int num, int indent )
 	{
-		buffer.write( "{", 1 );
-		if ( num > 4 ) {
-			buffer.write( "\n", 1 );
-			dump_indent( buffer, indent + 1 );
-		}
+		buffer.write( "{ ", 2 );
 		char tmp[32];
 		for ( int i = 0; i < num; ++i ) {
-			if ( (i + 1) % 4 == 0 ) {
+			if ( num > 4 && (i % 4 == 0) ) {
 				buffer.write( "\n", 1 );
 				dump_indent( buffer, indent + 1 );
 			}
-			int count = sprintf( tmp, "%f", floats[i] );
+			int count = sprintf( tmp, "%g", floats[i] );
 			buffer.write( tmp, count );
 			buffer.write( " ", 1 );
 		}
@@ -862,7 +860,6 @@ public:
 			dump_indent( buffer, indent );
 		}
 		buffer.write( "}", 1 );
-		buffer.write( "\n", 1 );
 	}
 };
 
@@ -891,7 +888,7 @@ public:
 	virtual void dump_value( Buffer &buffer, int indent )
 	{
 		Vector vector = section_->as_vector();
-		dump_float_array( buffer, &vector.a, 3, indent );
+		dump_float_array( buffer, &vector.x_, 3, indent );
 	}
 
 };
@@ -987,6 +984,7 @@ private:
 				dump_struct_brace_value( info );
 			} else {
 				dumper->dump_value( buffer_, indent_ );
+				buffer_.write( "\n", 1 );
 			}
 		}
 
@@ -997,7 +995,6 @@ private:
 	{
 		buffer_.write( "{\n", 2 );
 		dump_struct_value( root_info );
-		buffer_.write( "\n", 1 );
 		dump_indent();
 		buffer_.write( "}\n", 2 );
 	}
@@ -1023,6 +1020,10 @@ private:
 			return new FloatDumper( section );
 		case SECTION_TYPE_POINT:
 			return new PointDumper( section );
+		case SECTION_TYPE_VECTOR:
+			return new VectorDumper( section );
+		case SECTION_TYPE_MATRIX:
+			return new MatrixDumper( section );
 		case SECTION_TYPE_STRING:
 			return new StringDumper( section );
 		case SECTION_TYPE_BINARY:
@@ -1030,6 +1031,8 @@ private:
 		case SECTION_TYPE_STRUCT:
 			return new StructDumper( section );
 		}
+
+		log_error( "invalid dumper type [%d]", type );
 		return 0;
 	}
 
@@ -1108,7 +1111,7 @@ private:
 		}
 
 		// dump matrix
-		for ( MatrixMap::iterator it = matrixs_.begin(); it != vectors_.end(); ++it ) {
+		for ( MatrixMap::iterator it = matrixs_.begin(); it != matrixs_.end(); ++it ) {
 			it->second = buffer_.get_write_pos();
 			buffer_.write( &it->first, sizeof( Matrix ) );
 		}
@@ -1159,7 +1162,7 @@ private:
 		case SECTION_TYPE_FLOAT:
 			{
 				float value = info.section_->as_float();
-				entry.value_ = *((float *)&value);
+				memcpy( &entry.value_, &value, sizeof( float ) );
 				break;
 			}
 
@@ -1207,7 +1210,7 @@ SectionPtr parse_binary_section( BinaryPtr &binary )
 
 SectionPtr parse_section( BinaryPtr &binary )
 {
-	if ( binary->get_length() < 4 ) {
+	if ( !binary || binary->get_length() < 4 ) {
 		return 0;
 	}
 

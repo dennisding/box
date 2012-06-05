@@ -51,7 +51,7 @@ inline void Buffer::seek( int pos )
 	write_pos_ = pos;
 }
 
-inline void Buffer::get_write_pos()
+inline int Buffer::get_write_pos()
 {
 	return write_pos_;
 }

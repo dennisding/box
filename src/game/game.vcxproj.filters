@@ -3,9 +3,11 @@
   <ItemGroup>
     <ClCompile Include="game.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="client_main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.hpp" />
     <ClInclude Include="test.hpp" />
+    <ClInclude Include="game.hpp" />
   </ItemGroup>
 </Project>

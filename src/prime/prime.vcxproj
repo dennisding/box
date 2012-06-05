@@ -11,17 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5F4390D6-2C41-4B06-BFDC-39B9F016D16E}</ProjectGuid>
-    <RootNamespace>game</RootNamespace>
+    <ProjectGuid>{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}</ProjectGuid>
+    <RootNamespace>prime</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -41,7 +41,6 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -53,7 +52,6 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,25 +60,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="client_main.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClInclude Include="config.hpp" />
+    <ClInclude Include="task_mgr.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game.hpp" />
-    <ClInclude Include="test.hpp" />
-    <ClInclude Include="window.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\math\math.vcxproj">
-      <Project>{38b4dd3e-5333-4e7d-a373-4c97c70c9446}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\res_mgr\res_mgr.vcxproj">
-      <Project>{b177f071-4962-42f4-bcc7-d647793fe453}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\utils\utils.vcxproj">
-      <Project>{75782757-ed8a-4178-a7f9-510ef28494f2}</Project>
-    </ProjectReference>
+    <ClCompile Include="task_mgr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

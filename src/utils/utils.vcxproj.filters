@@ -12,5 +12,6 @@
     <ClCompile Include="string_utils.cpp" />
     <ClCompile Include="buffer.cpp" />
     <ClCompile Include="scanner.cpp" />
+    <ClCompile Include="log.cpp" />
   </ItemGroup>
 </Project>
