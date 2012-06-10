@@ -1,0 +1,6 @@
+#dog
+
+struct window = {
+	int width = 1024
+	int height = 768
+}
