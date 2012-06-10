@@ -4,10 +4,21 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="client_main.cpp" />
+    <ClCompile Include="input_task.cpp" />
+    <ClCompile Include="gui_task.cpp" />
+    <ClCompile Include="logic_task.cpp" />
+    <ClCompile Include="renderer_task.cpp" />
+    <ClCompile Include="prime_task.cpp" />
+    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.hpp" />
     <ClInclude Include="test.hpp" />
     <ClInclude Include="game.hpp" />
+    <ClInclude Include="gui_task.hpp" />
+    <ClInclude Include="input_task.hpp" />
+    <ClInclude Include="logic_task.hpp" />
+    <ClInclude Include="renderer_task.hpp" />
+    <ClInclude Include="prime_task.hpp" />
   </ItemGroup>
 </Project>

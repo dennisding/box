@@ -56,9 +56,11 @@ inline void TaskMgr::init()
 
 inline void TaskMgr::fini()
 {
-	for ( TaskVector::iterator it = tasks_.begin(); it != tasks_.end(); ++it ) {
+	for ( TaskVector::reverse_iterator it = tasks_.rbegin(); it != tasks_.rend(); ++it ) {
 		(*it)->fini();
 	}
+
+	tasks_.clear();
 }
 
 inline void TaskMgr::tick()

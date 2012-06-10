@@ -3,8 +3,10 @@
   <ItemGroup>
     <ClInclude Include="config.hpp" />
     <ClInclude Include="task_mgr.hpp" />
+    <ClInclude Include="game_time.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="task_mgr.cpp" />
+    <ClCompile Include="game_time.cpp" />
   </ItemGroup>
 </Project>

@@ -1,12 +1,12 @@
-#ifndef _GUI_TASK_HPP_
-#define _GUI_TASK_HPP_
+#ifndef _LOGIC_TASK_HPP_
+#define _LOGIC_TASK_HPP_
 
 #include "prime/task_mgr.hpp"
 
-class GuiTask : public Task
+class LogicTask : public Task
 {
 public:
-	GuiTask() : Task( "gui" )
+	LogicTask() : Task( "logic" )
 	{
 
 	}

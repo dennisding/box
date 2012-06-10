@@ -1,12 +1,12 @@
-#ifndef _GUI_TASK_HPP_
-#define _GUI_TASK_HPP_
+#ifndef _INPUT_TASK_HPP_
+#define _INPUT_TASK_HPP_
 
 #include "prime/task_mgr.hpp"
 
-class GuiTask : public Task
+class InputTask : public Task
 {
 public:
-	GuiTask() : Task( "gui" )
+	InputTask() : Task( "input" )
 	{
 
 	}

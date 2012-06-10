@@ -64,16 +64,33 @@
   <ItemGroup>
     <ClCompile Include="client_main.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="gui_task.cpp" />
+    <ClCompile Include="input_task.cpp" />
+    <ClCompile Include="logic_task.cpp" />
+    <ClCompile Include="prime_task.cpp" />
+    <ClCompile Include="renderer_task.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.hpp" />
+    <ClInclude Include="gui_task.hpp" />
+    <ClInclude Include="input_task.hpp" />
+    <ClInclude Include="logic_task.hpp" />
+    <ClInclude Include="prime_task.hpp" />
+    <ClInclude Include="renderer_task.hpp" />
     <ClInclude Include="test.hpp" />
     <ClInclude Include="window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\math\math.vcxproj">
       <Project>{38b4dd3e-5333-4e7d-a373-4c97c70c9446}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\network\network.vcxproj">
+      <Project>{53fe558c-2ad8-41ce-a7a9-62aa686abcdb}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\prime\prime.vcxproj">
+      <Project>{ba7bfe9b-74ca-423c-9ddb-d36af71ef15e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\res_mgr\res_mgr.vcxproj">
       <Project>{b177f071-4962-42f4-bcc7-d647793fe453}</Project>

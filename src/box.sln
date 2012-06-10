@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "math", "math\math.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "prime", "prime\prime.vcxproj", "{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "network", "network\network.vcxproj", "{53FE558C-2AD8-41CE-A7A9-62AA686ABCDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +39,10 @@ Global
 		{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}.Debug|Win32.Build.0 = Debug|Win32
 		{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}.Release|Win32.ActiveCfg = Release|Win32
 		{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}.Release|Win32.Build.0 = Release|Win32
+		{53FE558C-2AD8-41CE-A7A9-62AA686ABCDB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{53FE558C-2AD8-41CE-A7A9-62AA686ABCDB}.Debug|Win32.Build.0 = Debug|Win32
+		{53FE558C-2AD8-41CE-A7A9-62AA686ABCDB}.Release|Win32.ActiveCfg = Release|Win32
+		{53FE558C-2AD8-41CE-A7A9-62AA686ABCDB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

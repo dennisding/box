@@ -1,7 +1,7 @@
-#ifndef _WINDOW_HPP_
-#define _WINDOW_HPP_
+#ifndef _NETWORK_HPP_
+#define _NETWORK_HPP_
 
-class GameWindow
+class Network
 {
 public:
 	static void init();

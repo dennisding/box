@@ -1,12 +1,12 @@
-#ifndef _GUI_TASK_HPP_
-#define _GUI_TASK_HPP_
+#ifndef _RENDERER_TASK_HPP_
+#define _RENDERER_TASK_HPP_
 
 #include "prime/task_mgr.hpp"
 
-class GuiTask : public Task
+class RendererTask : public Task
 {
 public:
-	GuiTask() : Task( "gui" )
+	RendererTask() : Task( "renderer" )
 	{
 
 	}
