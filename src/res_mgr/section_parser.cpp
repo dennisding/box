@@ -231,7 +231,22 @@ class StructSection : public Section
 public:
 	virtual SectionVector &read_section_vector( const std::string &name )
 	{
-		return sections_[ name ];
+		size_t pos = name.find( "/" );
+		if ( pos == std::string::npos ) {
+			SectionMap::iterator it = sections_.find( name );
+			if ( it == sections_.end() ) {
+				return Section::read_section_vector( name );
+			}
+			return it->second;
+		}
+
+		std::string child_name = name.substr( 0, pos );
+		SectionMap::iterator it = sections_.find( child_name );
+		if ( it == sections_.end() ) {
+			return Section::read_section_vector( child_name );
+		}
+
+		return it->second[0]->read_section_vector( name.substr( pos + 1 ) );
 	}
 
 	virtual void write_int( const std::string &name, int value )

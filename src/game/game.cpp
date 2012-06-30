@@ -10,6 +10,8 @@
 #include "prime/task_mgr.hpp"
 #include "res_mgr/file_system.hpp"
 
+#include <Windows.h>
+
 bool Game::quit_ = false;
 
 static TaskMgr task_mgr_;
@@ -19,7 +21,7 @@ static void init_settings()
 	// init the res_mgr
 	SectionPtr path_section = parse_section( read_native_file( "path.dog" ) );
 	if ( path_section ) {
-		ResMgr::init( path_section->read_string( "res_path" ) );
+		ResMgr::init( path_section->read_string( "path" ) );
 	} else {
 		ResMgr::init( "../res/" );
 	}
@@ -59,8 +61,17 @@ void Game::run()
 	TaskMgr::init();
 
 	while ( !quit_ ) {
+		int begin_time = GetTickCount();
+
 		TaskMgr::tick();
 		TaskMgr::draw();
+
+		int end_time = GetTickCount();
+		int sleep_time = int(16.66666 - ( end_time - begin_time ));
+		if ( sleep_time >= 0 ) {
+			Sleep( sleep_time );
+		}
+
 	}
 
 	TaskMgr::fini();
