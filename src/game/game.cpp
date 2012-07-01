@@ -1,9 +1,9 @@
 #include "game.hpp"
-#include "input_task.hpp"
-#include "prime_task.hpp"
-#include "gui_task.hpp"
-#include "logic_task.hpp"
-#include "renderer_task.hpp"
+#include "task/input_task.hpp"
+#include "task/prime_task.hpp"
+#include "task/gui_task.hpp"
+#include "task/logic_task.hpp"
+#include "task/renderer_task.hpp"
 
 #include "utils/log.hpp"
 #include "prime/config.hpp"
@@ -61,17 +61,8 @@ void Game::run()
 	TaskMgr::init();
 
 	while ( !quit_ ) {
-		int begin_time = GetTickCount();
-
 		TaskMgr::tick();
 		TaskMgr::draw();
-
-		int end_time = GetTickCount();
-		int sleep_time = int(16.66666 - ( end_time - begin_time ));
-		if ( sleep_time >= 0 ) {
-			Sleep( sleep_time );
-		}
-
 	}
 
 	TaskMgr::fini();

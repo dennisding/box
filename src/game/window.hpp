@@ -13,6 +13,7 @@ public:
 
 	static int get_width();
 	static int get_height();
+	static bool is_fullscreen();
 
 public:
 	static HWND window_;

@@ -4,21 +4,46 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="client_main.cpp" />
-    <ClCompile Include="input_task.cpp" />
-    <ClCompile Include="gui_task.cpp" />
-    <ClCompile Include="logic_task.cpp" />
-    <ClCompile Include="renderer_task.cpp" />
-    <ClCompile Include="prime_task.cpp" />
     <ClCompile Include="window.cpp" />
+    <ClCompile Include="task\gui_task.cpp">
+      <Filter>task</Filter>
+    </ClCompile>
+    <ClCompile Include="task\input_task.cpp">
+      <Filter>task</Filter>
+    </ClCompile>
+    <ClCompile Include="task\logic_task.cpp">
+      <Filter>task</Filter>
+    </ClCompile>
+    <ClCompile Include="task\prime_task.cpp">
+      <Filter>task</Filter>
+    </ClCompile>
+    <ClCompile Include="task\renderer_task.cpp">
+      <Filter>task</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.hpp" />
     <ClInclude Include="test.hpp" />
     <ClInclude Include="game.hpp" />
-    <ClInclude Include="gui_task.hpp" />
-    <ClInclude Include="input_task.hpp" />
-    <ClInclude Include="logic_task.hpp" />
-    <ClInclude Include="renderer_task.hpp" />
-    <ClInclude Include="prime_task.hpp" />
+    <ClInclude Include="task\gui_task.hpp">
+      <Filter>task</Filter>
+    </ClInclude>
+    <ClInclude Include="task\input_task.hpp">
+      <Filter>task</Filter>
+    </ClInclude>
+    <ClInclude Include="task\logic_task.hpp">
+      <Filter>task</Filter>
+    </ClInclude>
+    <ClInclude Include="task\prime_task.hpp">
+      <Filter>task</Filter>
+    </ClInclude>
+    <ClInclude Include="task\renderer_task.hpp">
+      <Filter>task</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="task">
+      <UniqueIdentifier>{01a8871a-20ec-4d35-825f-cd27051cc0a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

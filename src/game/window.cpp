@@ -9,6 +9,7 @@ HWND GameWindow::window_;
 
 static int width_;
 static int height_;
+static bool fullscreen_;
 
 LRESULT CALLBACK win_proc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lpram )
 {
@@ -29,6 +30,7 @@ static void create_window()
 	int desktop_width = GetSystemMetrics( SM_CXSCREEN );
 	int desktop_height = GetSystemMetrics( SM_CYSCREEN );
 
+	fullscreen_ = GameConfig::read_bool( "window/fullscreen", false );
 	width_ = GameConfig::read_int( "window/width", 800 );
 	height_ = GameConfig::read_int( "window/height", 600 );
 	const std::string title = GameConfig::read_string( "window/title" );
@@ -98,4 +100,9 @@ int GameWindow::get_width()
 int GameWindow::get_height()
 {
 	return height_;
+}
+
+bool GameWindow::is_fullscreen()
+{
+	return fullscreen_;
 }
