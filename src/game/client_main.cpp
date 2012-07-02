@@ -6,8 +6,6 @@
 
 int main( int argc, char **argv )
 {
-	// do_test();
-	// return
 	Game::init();
 
 	Game::run();

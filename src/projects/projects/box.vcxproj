@@ -25,6 +25,7 @@
     <ClInclude Include="..\..\box\framwork\depth_stencil.hpp" />
     <ClInclude Include="..\..\box\framwork\device.hpp" />
     <ClInclude Include="..\..\box\framwork\device_context.hpp" />
+    <ClInclude Include="..\..\box\framwork\shader_compiler.hpp" />
     <ClInclude Include="..\..\box\framwork\swap_chain.hpp" />
     <ClInclude Include="..\..\box\primitive\index_buffer_mgr.hpp" />
     <ClInclude Include="..\..\box\primitive\render_target_mgr.hpp" />
@@ -60,7 +61,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>

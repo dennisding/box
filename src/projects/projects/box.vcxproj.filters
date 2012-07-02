@@ -65,5 +65,8 @@
     </ClInclude>
     <ClInclude Include="..\..\box\renderer.hpp" />
     <ClInclude Include="..\..\box\visible_item.hpp" />
+    <ClInclude Include="..\..\box\framwork\shader_compiler.hpp">
+      <Filter>framwork</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

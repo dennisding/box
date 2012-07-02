@@ -9,10 +9,11 @@
 class VertexShader : public Object
 {
 public:
-	VertexShader( ID3D11VertexShader *shader );
+	VertexShader( ID3D11VertexShader *shader, const std::string &name );
 	~VertexShader();
 
 private:
+	std::string name_;
 	ID3D11VertexShader *shader_;
 };
 
