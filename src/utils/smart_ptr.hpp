@@ -1,6 +1,8 @@
 #ifndef _SMART_PTR_HPP_
 #define _SMART_PTR_HPP_
 
+#include <Windows.h>
+
 class Object
 {
 public:
@@ -14,16 +16,16 @@ public:
 
 	inline void _increase_ref()
 	{
-		_reference_counter_++;
+		InterlockedIncrement( &_reference_counter_ );
 	}
 
-	inline int _decrease_ref()
+	inline long _decrease_ref()
 	{
-		return --_reference_counter_;
+		return InterlockedDecrement( &_reference_counter_ );
 	}
 
 private:
-	int _reference_counter_;
+	volatile long _reference_counter_;
 
 private:
 	Object( const Object &obj ); // you are not allow to use copy constructor to create a new object

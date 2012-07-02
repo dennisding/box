@@ -11,20 +11,32 @@
     <ClInclude Include="framwork\device_context.hpp">
       <Filter>framwork</Filter>
     </ClInclude>
-    <ClInclude Include="framwork\render_target_mgr.hpp">
-      <Filter>framwork</Filter>
-    </ClInclude>
     <ClInclude Include="framwork\swap_chain.hpp">
       <Filter>framwork</Filter>
     </ClInclude>
-    <ClInclude Include="framwork\texture_mgr.hpp">
-      <Filter>framwork</Filter>
-    </ClInclude>
     <ClInclude Include="renderer.hpp" />
+    <ClInclude Include="primitive\index_buffer_mgr.hpp">
+      <Filter>primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="primitive\vertex_buffer_mgr.hpp">
+      <Filter>primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="primitive\render_target_mgr.hpp">
+      <Filter>primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="primitive\texture_mgr.hpp">
+      <Filter>primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="primitive\vertex_shader_mgr.hpp">
+      <Filter>primitive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="framwork">
       <UniqueIdentifier>{dec31e49-c422-4442-b812-ef4b628b238b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="primitive">
+      <UniqueIdentifier>{35e5d2a0-a0df-433a-b01e-bbe8a65f3331}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,18 +46,24 @@
     <ClCompile Include="framwork\device_context.cpp">
       <Filter>framwork</Filter>
     </ClCompile>
-    <ClCompile Include="framwork\render_target_mgr.cpp">
-      <Filter>framwork</Filter>
-    </ClCompile>
     <ClCompile Include="framwork\swap_chain.cpp">
       <Filter>framwork</Filter>
     </ClCompile>
     <ClCompile Include="renderer.cpp" />
-    <ClCompile Include="framwork\texture_mgr.cpp">
-      <Filter>framwork</Filter>
-    </ClCompile>
     <ClCompile Include="framwork\depth_stencil.cpp">
       <Filter>framwork</Filter>
+    </ClCompile>
+    <ClCompile Include="primitive\vertex_buffer_mgr.cpp">
+      <Filter>primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="primitive\render_target_mgr.cpp">
+      <Filter>primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="primitive\texture_mgr.cpp">
+      <Filter>primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="primitive\vertex_shader_mgr.cpp">
+      <Filter>primitive</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,11 +2,22 @@
 #include "framwork/device.hpp"
 #include "framwork/swap_chain.hpp"
 #include "framwork/device_context.hpp"
+#include "primitive/vertex_shader_mgr.hpp"
 
 #include "game/window.hpp"
 #include "utils/log.hpp"
 
 #include "d3d11.h"
+
+static void primitive_init()
+{
+	VertexShaderMgr::init();
+}
+
+static void primitive_fini()
+{
+	VertexShaderMgr::fini();
+}
 
 void Renderer::init()
 {
@@ -33,10 +44,14 @@ void Renderer::init()
 	Device::init( device );
 	DeviceContext::init( context );
 	SwapChain::init();
+	
+	primitive_init();
 }
 
 void Renderer::fini()
 {
+	primitive_fini();
+
 	SwapChain::fini();
 	DeviceContext::fini();
 	Device::fini();
@@ -50,6 +65,11 @@ void Renderer::tick()
 }
 
 void Renderer::draw()
+{
+
+}
+
+void Renderer::draw_item( VisibleItemPtr &item )
 {
 
 }

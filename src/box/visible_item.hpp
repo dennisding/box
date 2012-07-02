@@ -1,16 +1,21 @@
 #ifndef _VISIBLE_ITEM_HPP_
 #define _VISIBLE_ITEM_HPP_
 
+#include "primitive/index_buffer_mgr.hpp"
+#include "primitive/vertex_buffer_mgr.hpp"
+#include "primitive/vertex_shader_mgr.hpp"
+
 #include "utils/smart_ptr.hpp"
 
-class VisibleItem : public Object
+struct VisualItem : public Object
 {
 public:
-
-private:
-
+	bool has_alpha_;
+	IndexBufferPtr index_buffer_;
+	VertexBufferPtr vertext_buffer_;
+	VertexShaderPtr vertex_shader_;
 };
 
-typedef SmartPtr< VisibleItem > VisibleItemPtr;
+typedef SmartPtr< VisualItem > VisibleItemPtr;
 
 #endif

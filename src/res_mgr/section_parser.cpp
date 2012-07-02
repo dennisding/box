@@ -567,7 +567,7 @@ private:
 		}
 
 		for ( int i = 0; i < size; ++i ) {
-			TokenType token = scanner_.scan();
+			ScanTokenType token = scanner_.scan();
 			if ( (token != TOKEN_INT ) && ( token != TOKEN_FLOAT ) ) {
 				syntax_error( tips_prefix + " number" );
 				return false;
