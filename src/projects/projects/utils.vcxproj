@@ -10,18 +10,32 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\utils\binary.hpp" />
+    <ClInclude Include="..\..\utils\buffer.hpp" />
+    <ClInclude Include="..\..\utils\log.hpp" />
+    <ClInclude Include="..\..\utils\scanner.hpp" />
+    <ClInclude Include="..\..\utils\smart_ptr.hpp" />
+    <ClInclude Include="..\..\utils\string_utils.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\utils\buffer.cpp" />
+    <ClCompile Include="..\..\utils\log.cpp" />
+    <ClCompile Include="..\..\utils\scanner.cpp" />
+    <ClCompile Include="..\..\utils\string_utils.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5F4390D6-2C41-4B06-BFDC-39B9F016D16E}</ProjectGuid>
-    <RootNamespace>game</RootNamespace>
+    <ProjectGuid>{75782757-ED8A-4178-A7F9-510EF28494F2}</ProjectGuid>
+    <RootNamespace>utils</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -36,16 +50,17 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -54,7 +69,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,47 +77,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="client_main.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="task\gui_task.cpp" />
-    <ClCompile Include="task\input_task.cpp" />
-    <ClCompile Include="task\logic_task.cpp" />
-    <ClCompile Include="task\prime_task.cpp" />
-    <ClCompile Include="task\renderer_task.cpp" />
-    <ClCompile Include="test.cpp" />
-    <ClCompile Include="window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="game.hpp" />
-    <ClInclude Include="task\gui_task.hpp" />
-    <ClInclude Include="task\input_task.hpp" />
-    <ClInclude Include="task\logic_task.hpp" />
-    <ClInclude Include="task\prime_task.hpp" />
-    <ClInclude Include="task\renderer_task.hpp" />
-    <ClInclude Include="test.hpp" />
-    <ClInclude Include="window.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\box\box.vcxproj">
-      <Project>{2d4feef3-c7f6-43fa-8138-90e348ec4083}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\math\math.vcxproj">
-      <Project>{38b4dd3e-5333-4e7d-a373-4c97c70c9446}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\network\network.vcxproj">
-      <Project>{53fe558c-2ad8-41ce-a7a9-62aa686abcdb}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\prime\prime.vcxproj">
-      <Project>{ba7bfe9b-74ca-423c-9ddb-d36af71ef15e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\res_mgr\res_mgr.vcxproj">
-      <Project>{b177f071-4962-42f4-bcc7-d647793fe453}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\utils\utils.vcxproj">
-      <Project>{75782757-ed8a-4178-a7f9-510ef28494f2}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

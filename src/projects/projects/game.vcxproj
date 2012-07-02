@@ -11,17 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2D4FEEF3-C7F6-43FA-8138-90E348EC4083}</ProjectGuid>
-    <RootNamespace>box</RootNamespace>
+    <ProjectGuid>{5F4390D6-2C41-4B06-BFDC-39B9F016D16E}</ProjectGuid>
+    <RootNamespace>game</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -41,10 +41,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -53,7 +54,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,28 +63,45 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="framwork\depth_stencil.hpp" />
-    <ClInclude Include="framwork\device.hpp" />
-    <ClInclude Include="framwork\device_context.hpp" />
-    <ClInclude Include="framwork\swap_chain.hpp" />
-    <ClInclude Include="primitive\index_buffer_mgr.hpp" />
-    <ClInclude Include="primitive\render_target_mgr.hpp" />
-    <ClInclude Include="primitive\texture_mgr.hpp" />
-    <ClInclude Include="primitive\vertex_buffer_mgr.hpp" />
-    <ClInclude Include="primitive\vertex_shader_mgr.hpp" />
-    <ClInclude Include="renderer.hpp" />
-    <ClInclude Include="visible_item.hpp" />
+    <ClCompile Include="..\..\game\client_main.cpp" />
+    <ClCompile Include="..\..\game\game.cpp" />
+    <ClCompile Include="..\..\game\task\gui_task.cpp" />
+    <ClCompile Include="..\..\game\task\input_task.cpp" />
+    <ClCompile Include="..\..\game\task\logic_task.cpp" />
+    <ClCompile Include="..\..\game\task\prime_task.cpp" />
+    <ClCompile Include="..\..\game\task\renderer_task.cpp" />
+    <ClCompile Include="..\..\game\test.cpp" />
+    <ClCompile Include="..\..\game\window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="framwork\depth_stencil.cpp" />
-    <ClCompile Include="framwork\device.cpp" />
-    <ClCompile Include="framwork\device_context.cpp" />
-    <ClCompile Include="framwork\swap_chain.cpp" />
-    <ClCompile Include="primitive\render_target_mgr.cpp" />
-    <ClCompile Include="primitive\texture_mgr.cpp" />
-    <ClCompile Include="primitive\vertex_buffer_mgr.cpp" />
-    <ClCompile Include="primitive\vertex_shader_mgr.cpp" />
-    <ClCompile Include="renderer.cpp" />
+    <ClInclude Include="..\..\game\game.hpp" />
+    <ClInclude Include="..\..\game\task\gui_task.hpp" />
+    <ClInclude Include="..\..\game\task\input_task.hpp" />
+    <ClInclude Include="..\..\game\task\logic_task.hpp" />
+    <ClInclude Include="..\..\game\task\prime_task.hpp" />
+    <ClInclude Include="..\..\game\task\renderer_task.hpp" />
+    <ClInclude Include="..\..\game\test.hpp" />
+    <ClInclude Include="..\..\game\window.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="box.vcxproj">
+      <Project>{2d4feef3-c7f6-43fa-8138-90e348ec4083}</Project>
+    </ProjectReference>
+    <ProjectReference Include="math.vcxproj">
+      <Project>{38b4dd3e-5333-4e7d-a373-4c97c70c9446}</Project>
+    </ProjectReference>
+    <ProjectReference Include="network.vcxproj">
+      <Project>{53fe558c-2ad8-41ce-a7a9-62aa686abcdb}</Project>
+    </ProjectReference>
+    <ProjectReference Include="prime.vcxproj">
+      <Project>{ba7bfe9b-74ca-423c-9ddb-d36af71ef15e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="res_mgr.vcxproj">
+      <Project>{b177f071-4962-42f4-bcc7-d647793fe453}</Project>
+    </ProjectReference>
+    <ProjectReference Include="utils.vcxproj">
+      <Project>{75782757-ed8a-4178-a7f9-510ef28494f2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

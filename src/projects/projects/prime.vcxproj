@@ -10,6 +10,15 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\prime\config.hpp" />
+    <ClInclude Include="..\..\prime\game_time.hpp" />
+    <ClInclude Include="..\..\prime\task_mgr.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\prime\game_time.cpp" />
+    <ClCompile Include="..\..\prime\task_mgr.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BA7BFE9B-74CA-423C-9DDB-D36AF71EF15E}</ProjectGuid>
     <RootNamespace>prime</RootNamespace>
@@ -41,7 +50,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -53,7 +62,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -61,15 +70,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="config.hpp" />
-    <ClInclude Include="game_time.hpp" />
-    <ClInclude Include="task_mgr.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="game_time.cpp" />
-    <ClCompile Include="task_mgr.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

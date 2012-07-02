@@ -4,6 +4,7 @@
 #include "utils/smart_ptr.hpp"
 
 #include "d3d11.h"
+#include <string>
 
 class VertexShader : public Object
 {
