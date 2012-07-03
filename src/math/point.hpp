@@ -1,6 +1,8 @@
 #ifndef _POINT_HPP_
 #define _POINT_HPP_
 
+#include <cstring>
+
 class Point
 {
 public:
@@ -11,5 +13,10 @@ public:
 	float x_;
 	float y_;
 };
+
+inline bool operator < ( const Point &p1, const Point &p2 )
+{
+	return memcmp( &p1, &p2, sizeof( Point ) ) < 0;
+}
 
 #endif

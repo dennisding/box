@@ -45,7 +45,7 @@ public:
 	const std::string read_string( const std::string &name );
 	BinaryPtr read_binary( const std::string &name );
 
-	virtual void add_child( const std::string &name, SectionPtr section ) {}
+	virtual void add_child( const std::string &name, SectionPtr &section ) {}
 	virtual void write_section( const std::string &name, SectionPtr value ) {}
 	virtual void write_int( const std::string &name, int value ) {}
 	virtual void write_bool( const std::string &name, bool value ) {}

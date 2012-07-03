@@ -68,17 +68,17 @@ public:
 
 	inline const Vector apply_point( const Vector &p ) const {
 		Vector tmp;
-		tmp.a = p.a * m_[0] + p.b * m_[1] + p.c * m_[2] + m_[3];
-		tmp.b = p.a * m_[4] + p.b * m_[5] + p.c * m_[6] + m_[7];
-		tmp.c = p.a * m_[8] + p.b * m_[9] + p.c * m_[10] + m_[11];
+		tmp.x_ = p.x_ * m_[0] + p.y_ * m_[1] + p.z_ * m_[2] + m_[3];
+		tmp.y_ = p.x_ * m_[4] + p.y_ * m_[5] + p.z_ * m_[6] + m_[7];
+		tmp.z_ = p.x_ * m_[8] + p.y_ * m_[9] + p.z_ * m_[10] + m_[11];
 		return tmp;
 	}
 
 	inline const Vector apply_vector( const Vector &v ) const {
 		Vector tmp;
-		tmp.a = v.a * m_[0] + v.b * m_[1] + v.c * m_[2];
-		tmp.b = v.a * m_[4] + v.b * m_[5] + v.c * m_[6];
-		tmp.c = v.a * m_[8] + v.b * m_[9] + v.c * m_[10];
+		tmp.x_ = v.x_ * m_[0] + v.y_ * m_[1] + v.z_ * m_[2];
+		tmp.y_ = v.x_ * m_[4] + v.y_ * m_[5] + v.z_ * m_[6];
+		tmp.z_ = v.x_ * m_[8] + v.y_ * m_[9] + v.z_ * m_[10];
 		return tmp;
 	}
 

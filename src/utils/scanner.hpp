@@ -6,7 +6,7 @@
 
 #include <string>
 
-enum TokenType {
+enum ScanTokenType {
 	TOKEN_UNKNOWN,
 	TOKEN_CHAR,
 	TOKEN_INT,
@@ -20,7 +20,7 @@ class Scanner : public Object
 public:
 	Scanner( BinaryPtr &bin, int start_pos = 0 );
 
-	TokenType scan();
+	ScanTokenType scan();
 	const std::string &scan_text();
 	const std::string &token_text();
 	// token split by space
@@ -35,9 +35,9 @@ private:
 	unsigned char peek_char();
 	unsigned char peek_next_char();
 
-	TokenType scan_string();
-	TokenType scan_number();
-	TokenType scan_identify();
+	ScanTokenType scan_string();
+	ScanTokenType scan_number();
+	ScanTokenType scan_identify();
 
 private:
 	BinaryPtr buffer_;

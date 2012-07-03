@@ -1,10 +1,12 @@
 #dog
-=
+
+// no show in file
 int iv = 1234
 float fv = 4321.23
-string s = '123\'abc\000\\1a234\\fff\\0中文fg'123item
+string s = '123\'abc\000\\1a234\\fff\\0中文fg'
+binary bv = 'bin也是一个 字符串啊'
 struct items = {
-	int total_item = 1024;
+	int total_item = 1024
 	struct item = {
 		string name='双倍经验abc'
 	}
@@ -12,9 +14,18 @@ struct items = {
 	struct item = {
 		int id = 1
 		#不知道是啥, 这是一个注释
-		string desc = '描述文字'
+		string desc = '描述文字 描述2'
+		point pv = { 1 2 }
 	}
+	vector vv = { 1 2 3}
 
+}
+
+matrix mv = {
+	1 2 3 4
+	5 6 7 8
+	9 10 11 12
+	13 14 15 16
 }
 
 struct modes = {

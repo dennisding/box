@@ -7,34 +7,34 @@ class Vector
 {
 public:
 	inline Vector () {}
-	inline Vector( float av, float bv, float cv ) : a(av), b(bv), c(cv) {}
+	inline Vector( float av, float bv, float cv ) : x_(av), y_(bv), z_(cv) {}
 
 	inline const Vector operator + ( const Vector &v ) const {
-		return Vector( a + v.a, b + v.b, c + v.c );
+		return Vector( x_ + v.x_, y_ + v.y_, z_ + v.z_ );
 	}
 
 	inline const Vector operator - ( const Vector &v ) const {
-		return Vector( a - v.a, b - v.b, c - v.c );
+		return Vector( x_ - v.x_, y_ - v.y_, z_ - v.z_ );
 	}
 
 	inline const Vector operator * ( float s ) const {
-		return Vector( a*s, b*s, c*s );
+		return Vector( x_*s, y_*s, z_*s );
 	}
 
 	inline float dotProduct( const Vector &v ) const {
-		return a*v.a + b*v.b + c*v.c;
+		return x_*v.x_ + y_*v.y_ + z_*v.z_;
 	}
 
 	inline const Vector crossProduct( const Vector &v ) const {
-		return Vector(b*v.c - c*v.b, c*v.a - a*v.c, a*v.b - b*v.a );
+		return Vector(y_*v.z_ - z_*v.y_, z_*v.x_ - x_*v.z_, x_*v.y_ - y_*v.x_ );
 	}
 
 	inline float lengthSquare() const {
-		return a*a + b*b + c*c;
+		return x_*x_ + y_*y_ + z_*z_;
 	}
 
 public:
-	float a, b, c;
+	float x_, y_, z_;
 
 	static Vector zero;
 };

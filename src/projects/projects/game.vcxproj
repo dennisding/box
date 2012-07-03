@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5F4390D6-2C41-4B06-BFDC-39B9F016D16E}</ProjectGuid>
+    <RootNamespace>game</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\game\client_main.cpp" />
+    <ClCompile Include="..\..\game\game.cpp" />
+    <ClCompile Include="..\..\game\task\gui_task.cpp" />
+    <ClCompile Include="..\..\game\task\input_task.cpp" />
+    <ClCompile Include="..\..\game\task\logic_task.cpp" />
+    <ClCompile Include="..\..\game\task\prime_task.cpp" />
+    <ClCompile Include="..\..\game\task\renderer_task.cpp" />
+    <ClCompile Include="..\..\game\test.cpp" />
+    <ClCompile Include="..\..\game\window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\game\game.hpp" />
+    <ClInclude Include="..\..\game\task\gui_task.hpp" />
+    <ClInclude Include="..\..\game\task\input_task.hpp" />
+    <ClInclude Include="..\..\game\task\logic_task.hpp" />
+    <ClInclude Include="..\..\game\task\prime_task.hpp" />
+    <ClInclude Include="..\..\game\task\renderer_task.hpp" />
+    <ClInclude Include="..\..\game\test.hpp" />
+    <ClInclude Include="..\..\game\window.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="box.vcxproj">
+      <Project>{2d4feef3-c7f6-43fa-8138-90e348ec4083}</Project>
+    </ProjectReference>
+    <ProjectReference Include="math.vcxproj">
+      <Project>{38b4dd3e-5333-4e7d-a373-4c97c70c9446}</Project>
+    </ProjectReference>
+    <ProjectReference Include="network.vcxproj">
+      <Project>{53fe558c-2ad8-41ce-a7a9-62aa686abcdb}</Project>
+    </ProjectReference>
+    <ProjectReference Include="prime.vcxproj">
+      <Project>{ba7bfe9b-74ca-423c-9ddb-d36af71ef15e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="res_mgr.vcxproj">
+      <Project>{b177f071-4962-42f4-bcc7-d647793fe453}</Project>
+    </ProjectReference>
+    <ProjectReference Include="utils.vcxproj">
+      <Project>{75782757-ed8a-4178-a7f9-510ef28494f2}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

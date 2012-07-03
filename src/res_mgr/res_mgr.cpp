@@ -2,6 +2,10 @@
 #include "file_system.hpp"
 #include "section_parser.hpp"
 
+void ResMgr::init( const std::string &root )
+{
+}
+
 BinaryPtr ResMgr::open_binary( const std::string &name )
 {
 	return FileSystemMgr::read( name );

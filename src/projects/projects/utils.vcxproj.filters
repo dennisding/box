@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\utils\binary.hpp" />
+    <ClInclude Include="..\..\utils\buffer.hpp" />
+    <ClInclude Include="..\..\utils\log.hpp" />
+    <ClInclude Include="..\..\utils\scanner.hpp" />
+    <ClInclude Include="..\..\utils\smart_ptr.hpp" />
+    <ClInclude Include="..\..\utils\string_utils.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\utils\buffer.cpp" />
+    <ClCompile Include="..\..\utils\log.cpp" />
+    <ClCompile Include="..\..\utils\scanner.cpp" />
+    <ClCompile Include="..\..\utils\string_utils.cpp" />
+  </ItemGroup>
+</Project>

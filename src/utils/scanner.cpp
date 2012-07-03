@@ -2,11 +2,11 @@
 
 #include <cctype>
 
-TokenType Scanner::scan()
+ScanTokenType Scanner::scan()
 {
 	skip_space_and_comment();
 	
-	TokenType token = TOKEN_UNKNOWN;
+	ScanTokenType token = TOKEN_UNKNOWN;
 	int token_begin = index_;
 
 	unsigned char ch = read_char();
@@ -62,7 +62,7 @@ void Scanner::skip_space_and_comment()
 	}
 }
 
-TokenType Scanner::scan_string()
+ScanTokenType Scanner::scan_string()
 {
 	unsigned char ch = peek_char();
 	bool escape = false;
@@ -85,9 +85,9 @@ TokenType Scanner::scan_string()
 	return TOKEN_STRING;
 }
 
-TokenType Scanner::scan_number()
+ScanTokenType Scanner::scan_number()
 {
-	TokenType token_type = TOKEN_INT;
+	ScanTokenType token_type = TOKEN_INT;
 	unsigned char ch = peek_char();
 	while ( isdigit( ch ) || ch == '.' ) {
 		if ( token_type == TOKEN_FLOAT && ch == '.' ) {
@@ -104,7 +104,7 @@ TokenType Scanner::scan_number()
 	return token_type;
 }
 
-TokenType Scanner::scan_identify()
+ScanTokenType Scanner::scan_identify()
 {
 	unsigned char ch = peek_char();
 	while ( isalnum( ch ) || ch == '_' ) {

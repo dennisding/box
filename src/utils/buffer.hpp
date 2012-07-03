@@ -18,6 +18,7 @@ public:
 	void seek( int pos );
 
 	BinaryPtr to_binary();
+	int get_write_pos();
 
 private:
 	int write_pos_;
@@ -48,6 +49,11 @@ inline void Buffer::write_char( char c )
 inline void Buffer::seek( int pos )
 {
 	write_pos_ = pos;
+}
+
+inline int Buffer::get_write_pos()
+{
+	return write_pos_;
 }
 
 #endif
