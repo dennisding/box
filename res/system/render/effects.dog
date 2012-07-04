@@ -1,0 +1,21 @@
+#dog
+
+struct effect = {
+	string name = 'default'
+	string vertex_shader = 'default.vs'
+	string pixel_shader = 'default.ps'
+	string input_layout = 'default'
+	string depth_stencil_state = 'default'
+	string rasterizer_state = 'default'
+	string blend_state = 'default'
+}
+
+struct effect = {
+	string name = 'alpha'
+	string vertex_shader = 'default.vs'
+	string pixel_shader = 'default.ps'
+	string input_layout = 'default'
+	string depth_stencil_state = 'default'
+	string rasterizer_state = 'default'
+	string blend_state = 'alpha'
+}
