@@ -2,8 +2,8 @@
 
 struct effect = {
 	string name = 'default'
-	string vertex_shader = 'default.vs'
-	string pixel_shader = 'default.ps'
+	string vertex_shader = 'default'
+	string pixel_shader = 'default'
 	string input_layout = 'default'
 	string depth_stencil_state = 'default'
 	string rasterizer_state = 'default'
@@ -12,10 +12,16 @@ struct effect = {
 
 struct effect = {
 	string name = 'alpha'
-	string vertex_shader = 'default.vs'
-	string pixel_shader = 'default.ps'
-	string input_layout = 'default'
-	string depth_stencil_state = 'default'
-	string rasterizer_state = 'default'
+	string blend_state = 'alpha'
+}
+
+struct effect = {
+	string name = '2d'
+	string vertex_shader = '2d'
+	string pixel_shader = '2d'
+}
+
+struct effect = {
+	string name = '2d_alpha'
 	string blend_state = 'alpha'
 }
