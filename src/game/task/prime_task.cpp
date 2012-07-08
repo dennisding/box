@@ -2,6 +2,7 @@
 #include "../window.hpp"
 
 #include "prime/game_time.hpp"
+#include "prime/thread_task_mgr.hpp"
 #include "network/network.hpp"
 
 void FirstTask::init()
@@ -14,6 +15,8 @@ void FirstTask::init()
 
 void FirstTask::fini()
 {
+	ThreadTaskMgr::fini();
+
 	GameWindow::fini();
 	Network::fini();
 }
@@ -21,6 +24,7 @@ void FirstTask::fini()
 void FirstTask::tick()
 {
 	GameTime::tick();
+	ThreadTaskMgr::tick();
 	
 	GameWindow::tick();
 	Network::tick();

@@ -11,29 +11,45 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\box\framwork\depth_stencil.cpp" />
-    <ClCompile Include="..\..\box\framwork\device.cpp" />
-    <ClCompile Include="..\..\box\framwork\device_context.cpp" />
-    <ClCompile Include="..\..\box\framwork\swap_chain.cpp" />
+    <ClCompile Include="..\..\box\effects\effect_desc_mgr.cpp" />
+    <ClCompile Include="..\..\box\framework\depth_stencil.cpp" />
+    <ClCompile Include="..\..\box\framework\device.cpp" />
+    <ClCompile Include="..\..\box\framework\device_context.cpp" />
+    <ClCompile Include="..\..\box\framework\global_const_mgr.cpp" />
+    <ClCompile Include="..\..\box\framework\swap_chain.cpp" />
+    <ClCompile Include="..\..\box\primitive\const_buffer.cpp" />
     <ClCompile Include="..\..\box\primitive\render_target_mgr.cpp" />
     <ClCompile Include="..\..\box\primitive\texture_mgr.cpp" />
     <ClCompile Include="..\..\box\primitive\vertex_buffer_mgr.cpp" />
     <ClCompile Include="..\..\box\primitive\vertex_shader_mgr.cpp" />
     <ClCompile Include="..\..\box\renderer.cpp" />
+    <ClCompile Include="..\..\box\visual.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\box\framwork\depth_stencil.hpp" />
-    <ClInclude Include="..\..\box\framwork\device.hpp" />
-    <ClInclude Include="..\..\box\framwork\device_context.hpp" />
-    <ClInclude Include="..\..\box\framwork\shader_compiler.hpp" />
-    <ClInclude Include="..\..\box\framwork\swap_chain.hpp" />
+    <ClInclude Include="..\..\box\effects\effect.hpp" />
+    <ClInclude Include="..\..\box\effects\effect_2d.hpp" />
+    <ClInclude Include="..\..\box\effects\effect_desc_mgr.hpp" />
+    <ClInclude Include="..\..\box\framework\blend_state_mgr.hpp" />
+    <ClInclude Include="..\..\box\framework\const_buffer_desc.hpp" />
+    <ClInclude Include="..\..\box\framework\depth_stencil.hpp" />
+    <ClInclude Include="..\..\box\framework\depth_stencil_state_mgr.hpp" />
+    <ClInclude Include="..\..\box\framework\device.hpp" />
+    <ClInclude Include="..\..\box\framework\device_context.hpp" />
+    <ClInclude Include="..\..\box\framework\global_const_mgr.hpp" />
+    <ClInclude Include="..\..\box\framework\input_layout_mgr.hpp" />
+    <ClInclude Include="..\..\box\framework\sampler_state_mgr.hpp" />
+    <ClInclude Include="..\..\box\framework\shader_compiler.hpp" />
+    <ClInclude Include="..\..\box\framework\swap_chain.hpp" />
+    <ClInclude Include="..\..\box\primitive\const_buffer.hpp" />
     <ClInclude Include="..\..\box\primitive\index_buffer_mgr.hpp" />
+    <ClInclude Include="..\..\box\primitive\pixel_shader_mgr.hpp" />
     <ClInclude Include="..\..\box\primitive\render_target_mgr.hpp" />
     <ClInclude Include="..\..\box\primitive\texture_mgr.hpp" />
     <ClInclude Include="..\..\box\primitive\vertex_buffer_mgr.hpp" />
     <ClInclude Include="..\..\box\primitive\vertex_shader_mgr.hpp" />
     <ClInclude Include="..\..\box\renderer.hpp" />
     <ClInclude Include="..\..\box\visible_item.hpp" />
+    <ClInclude Include="..\..\box\visual.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2D4FEEF3-C7F6-43FA-8138-90E348EC4083}</ProjectGuid>

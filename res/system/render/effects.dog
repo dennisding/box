@@ -11,11 +11,6 @@ struct effect = {
 }
 
 struct effect = {
-	string name = 'alpha'
-	string blend_state = 'alpha'
-}
-
-struct effect = {
 	string name = '2d'
 	string vertex_shader = '2d'
 	string pixel_shader = '2d'
@@ -23,5 +18,14 @@ struct effect = {
 
 struct effect = {
 	string name = '2d_alpha'
+	string vertex_shader = '2d'
+	string pixel_shader = '2d'
+	string blend_state = 'alpha'
+}
+
+struct effect = {
+	string name = 'sprite'
+	string vertex_shader = '2d'
+	string pixel_shader = '2d'
 	string blend_state = 'alpha'
 }

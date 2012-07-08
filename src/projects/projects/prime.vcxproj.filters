@@ -4,9 +4,13 @@
     <ClInclude Include="..\..\prime\config.hpp" />
     <ClInclude Include="..\..\prime\game_time.hpp" />
     <ClInclude Include="..\..\prime\task_mgr.hpp" />
+    <ClInclude Include="..\..\prime\thread.hpp" />
+    <ClInclude Include="..\..\prime\thread_task_mgr.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\prime\game_time.cpp" />
     <ClCompile Include="..\..\prime\task_mgr.cpp" />
+    <ClCompile Include="..\..\prime\thread.cpp" />
+    <ClCompile Include="..\..\prime\thread_task_mgr.cpp" />
   </ItemGroup>
 </Project>

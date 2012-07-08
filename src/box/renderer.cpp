@@ -1,7 +1,9 @@
 #include "renderer.hpp"
-#include "framwork/device.hpp"
-#include "framwork/swap_chain.hpp"
-#include "framwork/device_context.hpp"
+#include "effects/effect_desc_mgr.hpp"
+#include "framework/device.hpp"
+#include "framework/global_const_mgr.hpp"
+#include "framework/swap_chain.hpp"
+#include "framework/device_context.hpp"
 #include "primitive/vertex_shader_mgr.hpp"
 
 #include "game/window.hpp"
@@ -42,6 +44,8 @@ void Renderer::init()
 	}
 
 	Device::init( device );
+	EffectDescMgr::init();
+	GlobalConstMgr::init();
 	DeviceContext::init( context );
 	SwapChain::init();
 	
@@ -54,6 +58,8 @@ void Renderer::fini()
 
 	SwapChain::fini();
 	DeviceContext::fini();
+	GlobalConstMgr::fini();
+	EffectDescMgr::fini();
 	Device::fini();
 }
 
