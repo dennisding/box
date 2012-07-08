@@ -16,6 +16,7 @@
     <ClCompile Include="..\..\box\framework\device.cpp" />
     <ClCompile Include="..\..\box\framework\device_context.cpp" />
     <ClCompile Include="..\..\box\framework\global_const_mgr.cpp" />
+    <ClCompile Include="..\..\box\framework\shader_helper.cpp" />
     <ClCompile Include="..\..\box\framework\swap_chain.cpp" />
     <ClCompile Include="..\..\box\primitive\const_buffer.cpp" />
     <ClCompile Include="..\..\box\primitive\render_target_mgr.cpp" />
@@ -38,7 +39,7 @@
     <ClInclude Include="..\..\box\framework\global_const_mgr.hpp" />
     <ClInclude Include="..\..\box\framework\input_layout_mgr.hpp" />
     <ClInclude Include="..\..\box\framework\sampler_state_mgr.hpp" />
-    <ClInclude Include="..\..\box\framework\shader_compiler.hpp" />
+    <ClInclude Include="..\..\box\framework\shader_helper.hpp" />
     <ClInclude Include="..\..\box\framework\swap_chain.hpp" />
     <ClInclude Include="..\..\box\primitive\const_buffer.hpp" />
     <ClInclude Include="..\..\box\primitive\index_buffer_mgr.hpp" />

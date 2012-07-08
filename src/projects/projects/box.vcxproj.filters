@@ -47,6 +47,9 @@
     <ClCompile Include="..\..\box\framework\swap_chain.cpp">
       <Filter>framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\box\framework\shader_helper.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\box\primitive\index_buffer_mgr.hpp">
@@ -109,10 +112,10 @@
     <ClInclude Include="..\..\box\framework\sampler_state_mgr.hpp">
       <Filter>framework</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\shader_compiler.hpp">
+    <ClInclude Include="..\..\box\framework\swap_chain.hpp">
       <Filter>framework</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\swap_chain.hpp">
+    <ClInclude Include="..\..\box\framework\shader_helper.hpp">
       <Filter>framework</Filter>
     </ClInclude>
   </ItemGroup>
