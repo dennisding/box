@@ -24,7 +24,7 @@ public:
 
 	static void register_const( const std::string &name, int size );
 	static void set_const( const std::string &name, void *buffer );
-	static ConstSetterPtr get_const( const std::string &name );
+	static ConstSetterPtr get_const_setter( const std::string &name );
 };
 
 

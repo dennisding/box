@@ -10,8 +10,7 @@ class Effect;
 class ConstSetter : public Object
 {
 public:
-	ConstSetter();
-	virtual ~ConstSetter();
+	virtual ~ConstSetter() {}
 	virtual void set_const( void *buffer, int offset = 0 ) = 0;
 };
 

@@ -29,6 +29,7 @@ public:
 	static void init();
 	static void fini();
 	static VertexShaderPtr get( const std::string &name );
+	static VertexShaderPtr get_or_create( const std::string &name );
 };
 
 #endif

@@ -6,9 +6,11 @@
 #include <vector>
 #include <map>
 
-typedef std::map< std::string, ConstSetterPtr > ShaderConstMap;
+typedef std::map< std::string, ConstSetterPtr > ConstSetterMap;
+typedef std::map< std::string, int > ConstIndexMap;
 
-static ShaderConstMap const_map_;
+static ConstSetterMap const_setters_;
+static ConstIndexMap const_indexs_;
 static BinaryPtr const_buffer_;
 static int buffer_length_;
 
@@ -30,33 +32,36 @@ void GlobalConstMgr::init()
 void GlobalConstMgr::fini()
 {
 	const_buffer_ = 0;
-	const_map_.clear();
+	const_setters_.clear();
 }
 
 void GlobalConstMgr::register_const( const std::string &name, int size )
 {
 	int offset = buffer_length_;
 	if ( offset + size > buffer_length_ ) {
-		const_buffer_ = new Binary( const_buffer_->get_length() );
+		const_buffer_ = new Binary( const_buffer_->get_length() * 2 );
 	}
-	
-	const_map_.insert( std::make_pair( name, new GlobalConstSetter( offset, size ) ) );
+
+	buffer_length_ += size;
+	const_indexs_.insert( std::make_pair( name, offset ) );
+	const_setters_.insert( std::make_pair( name, new GlobalConstSetter( offset, size ) ) );
 }
 
 void GlobalConstMgr::set_const( const std::string &name, void *buffer )
 {
-	ShaderConstMap::iterator it = const_map_.find( name );
-	if ( it == const_map_.end() ) {
+	ConstIndexMap::iterator it = const_indexs_.find( name );
+	if ( it == const_indexs_.end() ) {
+		log_warn( "[GlobalConstMgr::set_const] unregister const", name.c_str() );
 		return;
 	}
 
-	memcpy( const_buffer_->get_buffer() + it->second.offset_, buffer, it->second.size_ );
+	memcpy( const_buffer_->get_buffer(), buffer, it->second );
 }
 
-ConstSetterPtr GlobalConstMgr::get_const( const std::string &name )
+ConstSetterPtr GlobalConstMgr::get_const_setter( const std::string &name )
 {
-	ShaderConstMap::iterator it = const_map_.find( name );
-	if ( it == const_map_.end() ) {
+	ConstSetterMap::iterator it = const_setters_.find( name );
+	if ( it == const_setters_.end() ) {
 		log_error( "[ConstMgr::get_const] unregister const '%s'", name.c_str() );
 		return new GlobalConstSetter( 0, 0 );
 	}

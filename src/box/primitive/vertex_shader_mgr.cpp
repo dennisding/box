@@ -9,6 +9,11 @@ typedef std::map< std::string, VertexShaderPtr > VertexShaderMap;
 
 static VertexShaderMap shaders_;
 
+static VertexShaderPtr create_shader( const std::string &name )
+{
+	std::string full_name = "system/render/vs/" + name + ".vs";
+}
+
 VertexShader::VertexShader( ID3D11VertexShader *shader, const std::string &name ) : shader_(shader), name_(name)
 {
 
@@ -37,4 +42,14 @@ VertexShaderPtr VertexShaderMgr::get( const std::string &name )
 		return 0;
 	}
 	return it->second;
+}
+
+VertexShaderPtr VertexShaderMgr::get_or_create( const std::string &name )
+{
+	VertexShaderPtr shader = get( name );
+	if ( shader ) {
+		return shader;
+	}
+	
+	return create_shader( name );
 }
