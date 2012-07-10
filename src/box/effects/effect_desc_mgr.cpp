@@ -23,11 +23,11 @@ static void create_effect( SectionPtr &info )
 {
 	EffectDescPtr effect = new EffectDesc;
 
-	effect->input_layout_ = InputLayoutMgr::get( read_effect_string( info, "input_layout" ) );
-
-	effect->vertex_shader_ = VertexShaderMgr::get( read_effect_string( info, "vertex_shader" ) );
+	effect->vertex_shader_ = VertexShaderMgr::get_or_create( read_effect_string( info, "vertex_shader" ) );
 	effect->vertex_shader_const_desc_ = effect->vertex_shader_->get_const_desc();
 	effect->vertex_shader_sampler_state_ = SamplerStateMgr::get( read_effect_string( info, "vertex_shader_sampler_state" ) );
+
+	effect->input_layout_ = InputLayoutMgr::get( read_effect_string( info, "input_layout" ) );
 
 	effect->pixel_shader_ = PixelShaderMgr::get( read_effect_string( info, "pixel_shader" ) );
 	effect->pixel_shader_const_desc_ = effect->pixel_shader_->get_const_desc();

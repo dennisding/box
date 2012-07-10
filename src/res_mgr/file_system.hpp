@@ -9,6 +9,9 @@
 class FileSystemMgr
 {
 public:
+	static void init( const std::string &root );
+	static void fini();
+
 	static BinaryPtr read( const std::string &name );
 };
 

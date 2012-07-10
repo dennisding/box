@@ -38,20 +38,19 @@ private:
 };
 
 static FileSystemVector file_systems_;
-static void init_file_systems()
-{
-	static bool inited = false;
-	if ( inited ) {
-		return;
-	}
 
-	file_systems_.push_back( new WinFileSystem() );
+void FileSystemMgr::init( const std::string &root )
+{
+	file_systems_.push_back( new WinFileSystem( root ) );
+}
+
+void FileSystemMgr::fini()
+{
+	file_systems_.clear();
 }
 
 BinaryPtr FileSystemMgr::read( const std::string &name )
 {
-	init_file_systems();
-
 	for ( FileSystemVector::iterator it = file_systems_.begin(); it != file_systems_.end(); ++it ) {
 		BinaryPtr binary = (*it)->read( name );
 		if ( binary ) {

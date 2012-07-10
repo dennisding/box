@@ -10,7 +10,7 @@
 class PixelShader : public Object
 {
 public:
-	ConstBufferDescPtr get_const_desc();
+	ConstBufferDescPtr get_const_desc() { return 0; }
 };
 
 typedef SmartPtr< PixelShader > PixelShaderPtr;
@@ -18,7 +18,7 @@ typedef SmartPtr< PixelShader > PixelShaderPtr;
 class PixelShaderMgr
 {
 public:
-	static PixelShaderPtr get( const std::string &name );
+	static PixelShaderPtr get( const std::string &name ) { return 0; }
 };
 
 #endif

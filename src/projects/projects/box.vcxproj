@@ -12,10 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\box\effects\effect_desc_mgr.cpp" />
+    <ClCompile Include="..\..\box\framework\blend_state_mgr.cpp" />
     <ClCompile Include="..\..\box\framework\depth_stencil.cpp" />
+    <ClCompile Include="..\..\box\framework\depth_stencil_state_mgr.cpp" />
     <ClCompile Include="..\..\box\framework\device.cpp" />
     <ClCompile Include="..\..\box\framework\device_context.cpp" />
     <ClCompile Include="..\..\box\framework\global_const_mgr.cpp" />
+    <ClCompile Include="..\..\box\framework\input_layout_mgr.cpp" />
+    <ClCompile Include="..\..\box\framework\sampler_state_mgr.cpp" />
     <ClCompile Include="..\..\box\framework\shader_helper.cpp" />
     <ClCompile Include="..\..\box\framework\swap_chain.cpp" />
     <ClCompile Include="..\..\box\primitive\const_buffer.cpp" />
@@ -81,10 +85,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
+    <IncludePath>$(DXSDK_DIR)Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)build\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
+    <IncludePath>$(DXSDK_DIR)Include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

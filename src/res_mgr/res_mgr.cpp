@@ -4,6 +4,12 @@
 
 void ResMgr::init( const std::string &root )
 {
+	FileSystemMgr::init( root );
+}
+
+void ResMgr::fini()
+{
+	FileSystemMgr::fini();
 }
 
 BinaryPtr ResMgr::open_binary( const std::string &name )

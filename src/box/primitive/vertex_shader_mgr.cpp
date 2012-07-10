@@ -1,4 +1,5 @@
 #include "vertex_shader_mgr.hpp"
+#include "../framework/shader_helper.hpp"
 
 #include "res_mgr/res_mgr.hpp"
 #include "utils/log.hpp"
@@ -8,11 +9,6 @@
 typedef std::map< std::string, VertexShaderPtr > VertexShaderMap;
 
 static VertexShaderMap shaders_;
-
-static VertexShaderPtr create_shader( const std::string &name )
-{
-	std::string full_name = "system/render/vs/" + name + ".vs";
-}
 
 VertexShader::VertexShader( ID3D11VertexShader *shader, const std::string &name ) : shader_(shader), name_(name)
 {
@@ -50,6 +46,13 @@ VertexShaderPtr VertexShaderMgr::get_or_create( const std::string &name )
 	if ( shader ) {
 		return shader;
 	}
-	
-	return create_shader( name );
+
+	ID3D11VertexShader *origin_shader = create_vertex_shader( name );
+	if ( !origin_shader ) {
+		return 0;
+	}
+
+	shader = new VertexShader( origin_shader, name );
+	shaders_.insert( std::make_pair( name, shader ) );
+	return shader;
 }

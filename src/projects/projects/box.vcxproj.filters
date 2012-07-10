@@ -50,6 +50,18 @@
     <ClCompile Include="..\..\box\framework\shader_helper.cpp">
       <Filter>framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\box\framework\depth_stencil_state_mgr.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\framework\blend_state_mgr.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\framework\sampler_state_mgr.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\framework\input_layout_mgr.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\box\primitive\index_buffer_mgr.hpp">

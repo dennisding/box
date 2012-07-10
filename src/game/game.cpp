@@ -54,6 +54,7 @@ void Game::init()
 
 void Game::fini()
 {
+	ResMgr::fini();
 }
 
 void Game::run()

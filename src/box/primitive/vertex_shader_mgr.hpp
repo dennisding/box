@@ -14,7 +14,7 @@ public:
 	VertexShader( ID3D11VertexShader *shader, const std::string &name );
 	~VertexShader();
 	
-	ConstBufferDescPtr get_const_desc();
+	ConstBufferDescPtr get_const_desc() { return 0; }
 
 private:
 	std::string name_;
