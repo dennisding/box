@@ -1,6 +1,8 @@
 #ifndef _EFFECT_DESC_MGR_HPP_
 #define _EFFECT_DESC_MGR_HPP_
 
+#include "effect.hpp"
+
 #include "../framework/sampler_state_mgr.hpp"
 #include "../framework/blend_state_mgr.hpp"
 #include "../framework/input_layout_mgr.hpp"
@@ -28,6 +30,8 @@ public:
 
 	BlendStatePtr blend_state_;
 	DepthStencilStatePtr depth_stencil_state_;
+
+	EffectPtr create_effect();
 };
 
 typedef SmartPtr< EffectDesc > EffectDescPtr;

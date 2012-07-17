@@ -130,5 +130,11 @@
     <ClInclude Include="..\..\box\framework\shader_helper.hpp">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\box\framework\com_ptr.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\box\framework\box_utils.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

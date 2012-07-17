@@ -1,5 +1,6 @@
 #include "vertex_shader_mgr.hpp"
 #include "../framework/shader_helper.hpp"
+#include "../framework/device.hpp"
 
 #include "res_mgr/res_mgr.hpp"
 #include "utils/log.hpp"
@@ -10,19 +11,24 @@ typedef std::map< std::string, VertexShaderPtr > VertexShaderMap;
 
 static VertexShaderMap shaders_;
 
-VertexShader::VertexShader( ID3D11VertexShader *shader, const std::string &name ) : shader_(shader), name_(name)
+VertexShader::VertexShader( const std::string &name ) : name_( name )
 {
 
 }
 
-VertexShader::~VertexShader()
+bool VertexShader::init( D3DBlobPtr &byte_code )
 {
-	shader_->Release();
+	byte_code_ = byte_code;
+
+	ID3D11VertexShader *shader = 0;
+	Device::device_->CreateVertexShader( byte_code->GetBufferPointer(), byte_code->GetBufferSize(), 0, &shader );
+	vertex_shader_ = D3D11VertexShaderPtr( shader );
+
+	return true;
 }
 
 void VertexShaderMgr::init()
 {
-	SectionPtr shader_info = ResMgr::open_section( "system/shader/vertex_shader.dog" );
 }
 
 void VertexShaderMgr::fini()
@@ -34,7 +40,6 @@ VertexShaderPtr VertexShaderMgr::get( const std::string &name )
 {
 	VertexShaderMap::iterator it = shaders_.find( name );
 	if ( it == shaders_.end() ) {
-		log_error( "unable to create the vertex shader: %s", name.c_str() );
 		return 0;
 	}
 	return it->second;
@@ -47,12 +52,18 @@ VertexShaderPtr VertexShaderMgr::get_or_create( const std::string &name )
 		return shader;
 	}
 
-	ID3D11VertexShader *origin_shader = create_vertex_shader( name );
-	if ( !origin_shader ) {
+	D3DBlobPtr byte_code = compile_vertex_shader( name );
+	if ( !byte_code ) {
+		log_error( "[VertexShaderMgr::get_or_create] unabel to compile shader '%s'", name.c_str() );
 		return 0;
 	}
 
-	shader = new VertexShader( origin_shader, name );
+	shader = new VertexShader( name );
+	if ( !shader->init( byte_code ) ) {
+		log_error( "[VertexShaderMgr::get_or_create] unable to create vertex shader '%s'", name.c_str() );
+		return 0;
+	}
+
 	shaders_.insert( std::make_pair( name, shader ) );
 	return shader;
 }

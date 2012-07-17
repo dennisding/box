@@ -1,6 +1,7 @@
 #ifndef _VERTEX_SHADER_MGR_HPP_
 #define _VERTEX_SHADER_MGR_HPP_
 
+#include "../framework/box_utils.hpp"
 #include "../framework/const_buffer_desc.hpp"
 
 #include "utils/smart_ptr.hpp"
@@ -11,14 +12,16 @@
 class VertexShader : public Object
 {
 public:
-	VertexShader( ID3D11VertexShader *shader, const std::string &name );
-	~VertexShader();
+	VertexShader( const std::string &name );
+
+	bool init( D3DBlobPtr &byte_code );
 	
 	ConstBufferDescPtr get_const_desc() { return 0; }
 
 private:
 	std::string name_;
-	ID3D11VertexShader *shader_;
+	D3DBlobPtr byte_code_;
+	D3D11VertexShaderPtr vertex_shader_;
 };
 
 typedef SmartPtr< VertexShader > VertexShaderPtr;
