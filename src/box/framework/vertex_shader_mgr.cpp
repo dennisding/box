@@ -1,6 +1,6 @@
 #include "vertex_shader_mgr.hpp"
-#include "../framework/shader_helper.hpp"
-#include "../framework/device.hpp"
+#include "shader_helper.hpp"
+#include "device.hpp"
 
 #include "res_mgr/res_mgr.hpp"
 #include "utils/log.hpp"

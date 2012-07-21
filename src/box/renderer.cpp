@@ -4,7 +4,7 @@
 #include "framework/global_const_mgr.hpp"
 #include "framework/swap_chain.hpp"
 #include "framework/device_context.hpp"
-#include "primitive/vertex_shader_mgr.hpp"
+#include "framework/vertex_shader_mgr.hpp"
 
 #include "game/window.hpp"
 #include "utils/log.hpp"

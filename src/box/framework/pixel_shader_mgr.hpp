@@ -1,7 +1,7 @@
 #ifndef _PIXEL_SHADER_MGR_HPP_
 #define _PIXEL_SHADER_MGR_HPP_
 
-#include "../framework/const_buffer_desc.hpp"
+#include "const_buffer_desc.hpp"
 
 #include "utils/smart_ptr.hpp"
 

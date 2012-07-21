@@ -1,8 +1,8 @@
 #ifndef _VERTEX_SHADER_MGR_HPP_
 #define _VERTEX_SHADER_MGR_HPP_
 
-#include "../framework/box_utils.hpp"
-#include "../framework/const_buffer_desc.hpp"
+#include "box_utils.hpp"
+#include "const_buffer_desc.hpp"
 
 #include "utils/smart_ptr.hpp"
 
@@ -15,7 +15,7 @@ public:
 	VertexShader( const std::string &name );
 
 	bool init( D3DBlobPtr &byte_code );
-	
+
 	ConstBufferDescPtr get_const_desc() { return 0; }
 
 private:

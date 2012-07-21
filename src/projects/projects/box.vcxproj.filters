@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="primitive">
-      <UniqueIdentifier>{35e5d2a0-a0df-433a-b01e-bbe8a65f3331}</UniqueIdentifier>
-    </Filter>
     <Filter Include="effects">
       <UniqueIdentifier>{d8718420-2929-49be-858f-b8f381212c56}</UniqueIdentifier>
     </Filter>
@@ -12,22 +9,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\box\primitive\render_target_mgr.cpp">
-      <Filter>primitive</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\box\primitive\texture_mgr.cpp">
-      <Filter>primitive</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\box\primitive\vertex_buffer_mgr.cpp">
-      <Filter>primitive</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\box\primitive\vertex_shader_mgr.cpp">
-      <Filter>primitive</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\box\renderer.cpp" />
-    <ClCompile Include="..\..\box\primitive\const_buffer.cpp">
-      <Filter>primitive</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\box\visual.cpp" />
     <ClCompile Include="..\..\box\effects\effect_desc_mgr.cpp">
       <Filter>effects</Filter>
@@ -62,23 +44,26 @@
     <ClCompile Include="..\..\box\framework\input_layout_mgr.cpp">
       <Filter>framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\box\framework\const_buffer_desc.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\framework\const_buffer.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\framework\render_target_mgr.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\framework\texture_mgr.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\framework\vertex_buffer_mgr.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\framework\vertex_shader_mgr.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\box\primitive\index_buffer_mgr.hpp">
-      <Filter>primitive</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\box\primitive\render_target_mgr.hpp">
-      <Filter>primitive</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\box\primitive\texture_mgr.hpp">
-      <Filter>primitive</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\box\primitive\vertex_buffer_mgr.hpp">
-      <Filter>primitive</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\box\primitive\vertex_shader_mgr.hpp">
-      <Filter>primitive</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\box\renderer.hpp" />
     <ClInclude Include="..\..\box\visible_item.hpp" />
     <ClInclude Include="..\..\box\effects\effect_2d.hpp">
@@ -87,15 +72,9 @@
     <ClInclude Include="..\..\box\effects\effect.hpp">
       <Filter>effects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\primitive\const_buffer.hpp">
-      <Filter>primitive</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\box\visual.hpp" />
     <ClInclude Include="..\..\box\effects\effect_desc_mgr.hpp">
       <Filter>effects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\box\primitive\pixel_shader_mgr.hpp">
-      <Filter>primitive</Filter>
     </ClInclude>
     <ClInclude Include="..\..\box\framework\blend_state_mgr.hpp">
       <Filter>framework</Filter>
@@ -134,6 +113,27 @@
       <Filter>framework</Filter>
     </ClInclude>
     <ClInclude Include="..\..\box\framework\box_utils.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\box\framework\const_buffer.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\box\framework\index_buffer_mgr.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\box\framework\pixel_shader_mgr.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\box\framework\render_target_mgr.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\box\framework\texture_mgr.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\box\framework\vertex_buffer_mgr.hpp">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\box\framework\vertex_shader_mgr.hpp">
       <Filter>framework</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #ifndef _GLOBAL_CONST_MGR_HPP_
 #define _GLOBAL_CONST_MGR_HPP_
 
-#include "../primitive/const_buffer.hpp"
+#include "const_buffer.hpp"
 
 #include <string>
 

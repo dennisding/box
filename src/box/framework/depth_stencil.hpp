@@ -1,7 +1,7 @@
 #ifndef _DEPTH_STENCIL_HPP_
 #define _DEPTH_STENCIL_HPP_
 
-#include "../primitive/render_target_mgr.hpp"
+#include "render_target_mgr.hpp"
 
 #include "utils/smart_ptr.hpp"
 

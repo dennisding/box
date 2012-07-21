@@ -8,8 +8,8 @@
 #include "../framework/input_layout_mgr.hpp"
 #include "../framework/const_buffer_desc.hpp"
 #include "../framework/depth_stencil_state_mgr.hpp"
-#include "../primitive/vertex_shader_mgr.hpp"
-#include "../primitive/pixel_shader_mgr.hpp"
+#include "../framework/vertex_shader_mgr.hpp"
+#include "../framework/pixel_shader_mgr.hpp"
 
 #include "utils/smart_ptr.hpp"
 
@@ -30,8 +30,6 @@ public:
 
 	BlendStatePtr blend_state_;
 	DepthStencilStatePtr depth_stencil_state_;
-
-	EffectPtr create_effect();
 };
 
 typedef SmartPtr< EffectDesc > EffectDescPtr;

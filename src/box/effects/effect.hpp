@@ -2,8 +2,8 @@
 #define _EFFECT_HPP_
 
 #include "effect_desc_mgr.hpp"
-//#include "../framework/const_mgr.hpp"
 
+#include "../framework/const_buffer_desc.hpp"
 #include "utils/smart_ptr.hpp"
 
 #include <string>
@@ -34,11 +34,6 @@ public:
 	~Effect();
 
 	void init( const std::string &name, ConstProviderPtr &const_privider );
-
-private:
-	void create_self( EffectDescPtr &desc );
-
-private:
 };
 
 // inline template

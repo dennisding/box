@@ -1,5 +1,5 @@
 #include "render_target_mgr.hpp"
-#include "../framework/device.hpp"
+#include "device.hpp"
 
 #include "utils/log.hpp"
 
@@ -32,6 +32,6 @@ RenderTargetPtr RenderTargetMgr::create_by_resource( const std::string &name, ID
 	if ( Device::device_->CreateRenderTargetView( resource, &desc, &view ) != 0 ) {
 		return 0;
 	}
-	
+
 	return new RenderTarget( name, view );
 }

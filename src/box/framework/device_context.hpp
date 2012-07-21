@@ -3,7 +3,7 @@
 
 #include "d3d11.h"
 
-#include "../primitive/render_target_mgr.hpp"
+#include "render_target_mgr.hpp"
 #include "depth_stencil.hpp"
 
 class DeviceContext
