@@ -1,0 +1,17 @@
+
+struct ps_in
+{
+};
+
+struct ps_out
+{
+	float4 color : SV_Target;
+};
+
+ps_out main()
+{
+	ps_out result;
+	result.color = float4( 1.0, 0, 0, 1 );
+
+	return result;
+}

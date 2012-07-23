@@ -3,7 +3,7 @@
 
 #include "effect_desc_mgr.hpp"
 
-#include "../framework/const_buffer_desc.hpp"
+#include "../prime/const_buffer_desc.hpp"
 #include "utils/smart_ptr.hpp"
 
 #include <string>

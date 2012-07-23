@@ -27,7 +27,8 @@ public:
 	ConstBufferDesc();
 	ConstBufferPtr create_buffer();
 
-	void add_const_desc( const std::string &name, int offset, int size );
+	void add_const_desc( const std::string &name, int buffer, int offset, int size );
+	int empty();
 
 private:
 	int size_;
@@ -48,7 +49,12 @@ inline ConstBufferDesc::ConstBufferDesc() : size_(0)
 
 }
 
-inline void ConstBufferDesc::add_const_desc( const std::string &name, int offset, int size )
+inline int ConstBufferDesc::empty()
+{
+	return size_ == 0;
+}
+
+inline void ConstBufferDesc::add_const_desc( const std::string &name, int buffer, int offset, int size )
 {
 	int new_size = offset + size;
 	if ( size_ < new_size ) {

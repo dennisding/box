@@ -23,15 +23,14 @@ static void create_effect( SectionPtr &info )
 {
 	EffectDescPtr effect = new EffectDesc;
 
-	effect->vertex_shader_ = VertexShaderMgr::get_or_create( read_effect_string( info, "vertex_shader" ) );
-	effect->vertex_shader_const_desc_ = effect->vertex_shader_->get_const_desc();
-	effect->vertex_shader_sampler_state_ = SamplerStateMgr::get( read_effect_string( info, "vertex_shader_sampler_state" ) );
+	std::string vertex_shader_name = read_effect_string( info, "vertex_shader" );
+	std::string input_layout_name = read_effect_string( info, "input_layout" );
 
-	effect->input_layout_ = InputLayoutMgr::get( read_effect_string( info, "input_layout" ) );
+	effect->vertex_shader_ = VertexShaderMgr::get_or_create( vertex_shader_name, input_layout_name );
+	effect->vertex_shader_sampler_state_ = SamplerStateMgr::get( info->read_string( "vertex_shader_sampler_state" ) );
 
-	effect->pixel_shader_ = PixelShaderMgr::get( read_effect_string( info, "pixel_shader" ) );
-	effect->pixel_shader_const_desc_ = effect->pixel_shader_->get_const_desc();
-	effect->pixel_shader_sampler_state_ = SamplerStateMgr::get( read_effect_string( info, "pixel_shader_sampler_state" ) );
+	effect->pixel_shader_ = PixelShaderMgr::get_or_create( read_effect_string( info, "pixel_shader" ) );
+	effect->pixel_shader_sampler_state_ = SamplerStateMgr::get( info->read_string( "pixel_shader_sampler_state") );
 
 	effect->blend_state_ = BlendStateMgr::get( read_effect_string( info, "blend_state" ) );
 	effect->depth_stencil_state_ = DepthStencilStateMgr::get( read_effect_string( info, "depth_stencil_state" ));

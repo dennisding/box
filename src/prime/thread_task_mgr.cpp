@@ -22,6 +22,11 @@ private:
 static ThreadPool io_threads_( 2 );
 static ThreadPool default_threads_(3);
 
+TaskThread::TaskThread() : quit_( false )
+{
+
+}
+
 TaskThread::~TaskThread()
 {
 	AUTO_LOCK( locker_ );
@@ -30,7 +35,7 @@ TaskThread::~TaskThread()
 
 void TaskThread::run()
 {
-	while ( true ) {
+	while ( !quit_ ) {
 		ThreadTaskPtr task = get_task();
 		if ( task ) {
 			task->run();
@@ -38,6 +43,11 @@ void TaskThread::run()
 		}
 		Sleep( 1 );
 	}
+}
+
+void TaskThread::stop()
+{
+	quit_ = true;
 }
 
 void TaskThread::add_task( ThreadTaskPtr &task )

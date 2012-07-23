@@ -3,7 +3,7 @@
 
 #include "utils/smart_ptr.hpp"
 
-#include <vector>
+#include <list>
 
 class Effect;
 
@@ -15,7 +15,7 @@ public:
 };
 
 typedef SmartPtr< ConstSetter > ConstSetterPtr;
-typedef std::vector< ConstSetterPtr > ConstSetterVector;
+typedef std::list< ConstSetterPtr > ConstSetterList;
 
 class MemoryConstSetter : public ConstSetter
 {
@@ -39,7 +39,7 @@ private:
 
 private:
 	Effect *parent_;
-	ConstSetterVector const_setters_;
+	ConstSetterList const_setters_;
 };
 
 typedef SmartPtr< ConstBuffer > ConstBufferPtr;

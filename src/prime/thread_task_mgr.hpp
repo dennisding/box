@@ -24,8 +24,10 @@ typedef std::list< ThreadTaskPtr > ThreadTaskList;
 class TaskThread : public Thread
 {
 public:
+	TaskThread();
 	virtual ~TaskThread();
 	virtual void run();
+	virtual void stop();
 	void add_task( ThreadTaskPtr &task );
 	void tick();
 
@@ -34,6 +36,7 @@ private:
 	void set_to_finish( ThreadTaskPtr &task );
 
 private:
+	bool quit_;
 	ThreadTaskList tasks_;
 	ThreadTaskList finished_tasks_;
 	Locker locker_;

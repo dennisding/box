@@ -4,8 +4,8 @@
     <Filter Include="effects">
       <UniqueIdentifier>{d8718420-2929-49be-858f-b8f381212c56}</UniqueIdentifier>
     </Filter>
-    <Filter Include="framework">
-      <UniqueIdentifier>{dec31e49-c422-4442-b812-ef4b628b238b}</UniqueIdentifier>
+    <Filter Include="prime">
+      <UniqueIdentifier>{359ff27b-bb96-4861-80fe-d7a4d20bb2e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -14,53 +14,56 @@
     <ClCompile Include="..\..\box\effects\effect_desc_mgr.cpp">
       <Filter>effects</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\depth_stencil.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\const_buffer.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\device.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\depth_stencil.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\device_context.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\device.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\global_const_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\device_context.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\swap_chain.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\shader_helper.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\shader_helper.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\swap_chain.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\depth_stencil_state_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\blend_state_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\blend_state_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\const_buffer_desc.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\sampler_state_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\depth_stencil_state_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\input_layout_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\global_const_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\const_buffer_desc.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\input_layout_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\const_buffer.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\render_target_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\render_target_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\sampler_state_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\texture_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\texture_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\vertex_buffer_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\vertex_buffer_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\box\framework\vertex_shader_mgr.cpp">
-      <Filter>framework</Filter>
+    <ClCompile Include="..\..\box\prime\vertex_shader_mgr.cpp">
+      <Filter>prime</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\box\prime\pixel_shader_mgr.cpp">
+      <Filter>prime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,65 +79,59 @@
     <ClInclude Include="..\..\box\effects\effect_desc_mgr.hpp">
       <Filter>effects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\blend_state_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\const_buffer.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\const_buffer_desc.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\depth_stencil.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\depth_stencil.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\device.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\depth_stencil_state_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\device_context.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\device.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\shader_helper.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\device_context.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\swap_chain.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\global_const_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\blend_state_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\input_layout_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\const_buffer_desc.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\sampler_state_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\depth_stencil_state_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\swap_chain.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\global_const_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\shader_helper.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\index_buffer_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\com_ptr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\input_layout_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\box_utils.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\pixel_shader_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\const_buffer.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\render_target_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\index_buffer_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\sampler_state_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\pixel_shader_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\texture_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\render_target_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\vertex_buffer_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\box\framework\texture_mgr.hpp">
-      <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\box\framework\vertex_buffer_mgr.hpp">
-      <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\box\framework\vertex_shader_mgr.hpp">
-      <Filter>framework</Filter>
+    <ClInclude Include="..\..\box\prime\vertex_shader_mgr.hpp">
+      <Filter>prime</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,10 +1,13 @@
 #include "renderer.hpp"
 #include "effects/effect_desc_mgr.hpp"
-#include "framework/device.hpp"
-#include "framework/global_const_mgr.hpp"
-#include "framework/swap_chain.hpp"
-#include "framework/device_context.hpp"
-#include "framework/vertex_shader_mgr.hpp"
+#include "prime/device.hpp"
+#include "prime/depth_stencil_state_mgr.hpp"
+#include "prime/blend_state_mgr.hpp"
+#include "prime/global_const_mgr.hpp"
+#include "prime/swap_chain.hpp"
+#include "prime/device_context.hpp"
+#include "prime/vertex_shader_mgr.hpp"
+#include "prime/input_layout_mgr.hpp"
 
 #include "game/window.hpp"
 #include "utils/log.hpp"
@@ -13,12 +16,24 @@
 
 static void primitive_init()
 {
+	GlobalConstMgr::init();
+	InputLayoutMgr::init();
 	VertexShaderMgr::init();
+	BlendStateMgr::init();
+	DepthStencilStateMgr::init();
+
+	EffectDescMgr::init();
 }
 
 static void primitive_fini()
 {
+	GlobalConstMgr::fini();
+	InputLayoutMgr::fini();
 	VertexShaderMgr::fini();
+	BlendStateMgr::fini();
+	DepthStencilStateMgr::fini();
+
+	EffectDescMgr::fini();
 }
 
 void Renderer::init()
@@ -44,8 +59,6 @@ void Renderer::init()
 	}
 
 	Device::init( device );
-	EffectDescMgr::init();
-	GlobalConstMgr::init();
 	DeviceContext::init( context );
 	SwapChain::init();
 	
@@ -58,8 +71,6 @@ void Renderer::fini()
 
 	SwapChain::fini();
 	DeviceContext::fini();
-	GlobalConstMgr::fini();
-	EffectDescMgr::fini();
 	Device::fini();
 }
 

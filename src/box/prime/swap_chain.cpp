@@ -41,7 +41,7 @@ static IDXGISwapChain *create_swap_chain()
 
 	DXGI_SWAP_CHAIN_DESC desc;
 	ZeroMemory( &desc, sizeof( DXGI_SWAP_CHAIN_DESC ) );
-	desc.BufferCount = 2;
+	desc.BufferCount = 1;
 	desc.BufferDesc.Width = GameWindow::get_width();
 	desc.BufferDesc.Height = GameWindow::get_height();
 	desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;

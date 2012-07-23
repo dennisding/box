@@ -16,6 +16,9 @@ typedef SmartPtr< SamplerState > SamplerStatePtr;
 class SamplerStateMgr
 {
 public:
+	static void init();
+	static void fini();
+
 	static SamplerStatePtr get( const std::string &name );
 };
 
