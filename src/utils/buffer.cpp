@@ -18,11 +18,11 @@ void Buffer::write_at( int offset, const void *buffer, int size )
 	while ( writed < size ) {
 		int index = write_pos_ / BUFFER_SIZE;
 		int offset = write_pos_ % BUFFER_SIZE;
-		int available = (index + 1 ) * BUFFER_SIZE;
-		if ( size < available ) {
-			available = size;
+		int available = BUFFER_SIZE - offset;
+		if ( size - writed < available ) {
+			available = size - writed;
 		}
-		memcpy( buffers_[index]->get_buffer() + offset, buffer, available );
+		memcpy( buffers_[index]->get_buffer() + offset, (char *)buffer + writed, available );
 
 		write_pos_ += available;
 		writed += available;
@@ -43,8 +43,8 @@ BinaryPtr Buffer::to_binary()
 		if ( copy_length > BUFFER_SIZE ) {
 			copy_length = BUFFER_SIZE;
 		}
-		memcpy( bin->get_buffer(), buffers_[copyed/BUFFER_SIZE]->get_buffer(), copy_length );
-		copyed = copy_length;
+		memcpy( bin->get_buffer() + copyed, buffers_[copyed/BUFFER_SIZE]->get_buffer(), copy_length );
+		copyed += copy_length;
 	}
 
 	return bin;

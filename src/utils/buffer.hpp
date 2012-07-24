@@ -1,10 +1,10 @@
 #ifndef _BUFFER_HPP_
 #define _BUFFER_HPP_
 
-#include <vector>
-
 #include "binary.hpp"
 #include "smart_ptr.hpp"
+
+#include <vector>
 
 typedef std::vector< BinaryPtr > BinaryVector;
 
