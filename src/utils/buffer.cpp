@@ -44,7 +44,7 @@ BinaryPtr Buffer::to_binary()
 			copy_length = BUFFER_SIZE;
 		}
 		memcpy( bin->get_buffer(), buffers_[copyed/BUFFER_SIZE]->get_buffer(), copy_length );
-		copyed = copy_length;
+		copyed += copy_length;
 	}
 
 	return bin;
